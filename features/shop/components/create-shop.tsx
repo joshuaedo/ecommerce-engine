@@ -32,6 +32,7 @@ const CreateShop = ({}: CreateShopProps) => {
     resolver: zodResolver(CreateShopValidator),
     defaultValues: {
       name: '',
+      userId: '',
     },
   });
 
@@ -66,6 +67,7 @@ const CreateShop = ({}: CreateShopProps) => {
                           className='border border-transparent shadow-md placeholder:text-background dark:border-[#333333] '
                           placeholder="What's the name of your shop?"
                           autoFocus
+                          disabled={isPostingShopName}
                           ref={inputRef}
                         />
                       </FormControl>
@@ -89,6 +91,7 @@ const CreateShop = ({}: CreateShopProps) => {
                     size='thin'
                     type='submit'
                     variant='outline'
+                    disabled={isPostingShopName}
                   >
                     Cancel
                   </Button>

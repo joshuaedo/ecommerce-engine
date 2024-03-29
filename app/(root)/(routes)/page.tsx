@@ -14,9 +14,5 @@ export default function HomePage() {
     }
   }, [isOpen, onOpen]);
 
-  return (
-    <main className=''>
-      <UserButton afterSignOutUrl='/' />
-    </main>
-  );
+  return <UserButton afterSignOutUrl='/' />;
 }
