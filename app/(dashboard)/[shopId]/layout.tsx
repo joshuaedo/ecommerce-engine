@@ -1,3 +1,4 @@
+import Navbar from '@/components/layout/navbar';
 import { getShopById } from '@/features/shop/lib/queries';
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
@@ -22,7 +23,7 @@ export default async function DashboardLayout({
   }
   return (
     <div>
-      <nav>{shop?.name}</nav>
+      <Navbar />
       {children}
     </div>
   );

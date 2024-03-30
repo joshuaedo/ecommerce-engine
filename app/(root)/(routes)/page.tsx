@@ -1,7 +1,6 @@
 'use client';
 
 import useShopModal from '@/features/shop/hooks/use-shop-modal';
-import { UserButton } from '@clerk/nextjs';
 import { useEffect } from 'react';
 
 export default function HomePage() {
@@ -14,5 +13,5 @@ export default function HomePage() {
     }
   }, [isOpen, onOpen]);
 
-  return <UserButton afterSignOutUrl='/' />;
+  return <></>;
 }
