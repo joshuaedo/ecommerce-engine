@@ -17,12 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body
-        className={cn(
-          GeistSans.className,
-          'relative flex min-h-[100svh] flex-col bg-background'
-        )}
-      >
+      <body className={cn(GeistSans.className, 'relative bg-background')}>
         <Providers>
           <LayoutClient>{children}</LayoutClient>
         </Providers>

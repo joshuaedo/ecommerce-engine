@@ -1,5 +1,6 @@
 'use client';
-import { UserButton } from '@clerk/nextjs';
+
+// import { UserButton } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
@@ -37,7 +38,7 @@ const Navbar = ({}: NavbarProps) => {
           ))}
         </div>
         <div className='ml-auto flex items-center space-x-4'>
-          <UserButton afterSignOutUrl='/' />
+          {/* <UserButton afterSignOutUrl='/' /> */}
           user
         </div>
       </div>

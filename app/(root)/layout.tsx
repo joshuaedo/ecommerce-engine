@@ -1,5 +1,6 @@
+import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { getShopByUserId } from '@/features/shop/lib/queries';
-import { auth } from '@clerk/nextjs';
+// import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
 export default async function HomeLayout({
@@ -7,7 +8,10 @@ export default async function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userId } = auth();
+  // const { userId } = auth();
+
+  const session = await getAuthSession();
+  const userId = session?.user?.id ?? '';
 
   if (!userId) {
     redirect('/sign-in');

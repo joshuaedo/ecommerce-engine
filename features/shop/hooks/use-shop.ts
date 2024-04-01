@@ -1,22 +1,21 @@
 'use client';
 
 import { startTransition, useState } from 'react';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { toast } from '@/hooks/use-toast';
 import { useCustomToast } from '@/hooks/use-custom-toast';
 import { CreateShopType, ShopType } from '../types/validators';
-import { useAuth } from '@clerk/nextjs';
+// import { useAuth } from '@clerk/nextjs';
+import { useSession } from 'next-auth/react';
 
 const useShop = () => {
-  const [shopName, setShopName] = useState('');
-  const router = useRouter();
+  // const router = useRouter();
+  // const user = useAuth();
   const { loginToast } = useCustomToast();
-  const user = useAuth();
-  const userId = user?.userId ?? '';
-
-  console.log(userId);
+  const session = useSession();
+  const userId = session?.data?.user?.id ?? '';
 
   const {
     mutate: postShopName,
@@ -54,8 +53,6 @@ const useShop = () => {
   });
 
   return {
-    shopName,
-    setShopName,
     postShopName,
     isPostingShopName,
   };

@@ -1,11 +1,10 @@
 import { getShopById } from '@/features/shop/lib/queries';
-import React, { FC } from 'react';
 
 interface DashboardPageProps {
   params: { shopId: string };
 }
 
-const DashboardPage: FC<DashboardPageProps> = async ({ params }) => {
+const DashboardPage = async ({ params }: DashboardPageProps) => {
   const shop = await getShopById(params.shopId);
 
   return (
