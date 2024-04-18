@@ -19,6 +19,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      allowDangerousEmailAccountLinking: true,
     }),
     CredentialsProvider({
       name: 'Credentials',
@@ -34,17 +35,17 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error('Email and password are required');
         }
 
         const existingUser = await getUserByEmail(credentials.email);
 
         if (!existingUser) {
-          return null;
+          throw new Error('User not found');
         }
 
         if (!existingUser?.password) {
-          return null;
+          throw new Error('Password not found');
         }
 
         const passwordMatch = await compare(
@@ -53,7 +54,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!passwordMatch) {
-          return null;
+          throw new Error('Incorrect credentials');
         }
 
         return {

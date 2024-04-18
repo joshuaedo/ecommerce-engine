@@ -25,6 +25,7 @@ import {
   SignInWithEmailAndPasswordValidator,
 } from '../../types/validator';
 import useAuth from '../../hooks/use-auth';
+import { Icons } from '@/components/common/icons';
 
 const SignInForm = () => {
   const form = useForm<SignInWithEmailAndPasswordType>({
@@ -92,12 +93,13 @@ const SignInForm = () => {
                         <div className='grid gap-2'>
                           <div className='flex items-center'>
                             <Label htmlFor='password'>Password</Label>
-                            <Link
-                              href='#'
+                            {/* <Link
+                              href='/forgot-password'
                               className='ml-auto inline-block text-sm underline'
                             >
                               Forgot your password?
-                            </Link>
+                            </Link> */}
+                            {/* TODO: Add forgot password feature */}
                           </div>
                           <Input
                             {...field}
@@ -124,7 +126,9 @@ const SignInForm = () => {
                   className='w-full'
                   isLoading={isSigningInWithGoogle}
                 >
-                  Sign in with Google
+                  <span className='flex items-center gap-2'>
+                    Sign in with Google <Icons.google className='h-4 w-4' />
+                  </span>
                 </Button>
               </form>
             </Form>

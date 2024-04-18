@@ -64,20 +64,21 @@ const useAuth = () => {
     setIsSigningInWithEmailAndPassword(true);
 
     try {
-      const signIn = await signInWithNextAuth('credentials', {
+      signInWithNextAuth('credentials', {
         email: data.email,
         password: data.password,
         redirect: false,
-      });
-
-      // console.log(signIn);
-      window.location.assign(`/`);
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: 'Error',
-        description: 'There was a problem signing in.',
-        variant: 'destructive',
+      }).then(({ ok, error }: any) => {
+        if (ok) {
+          window.location.assign(`/`);
+        } else {
+          console.log(error);
+          toast({
+            title: 'Error',
+            description: error,
+            variant: 'destructive',
+          });
+        }
       });
     } finally {
       setIsSigningInWithEmailAndPassword(false);
@@ -88,12 +89,17 @@ const useAuth = () => {
     setIsSigningInWithGoogle(true);
 
     try {
-      await signInWithNextAuth('google');
-    } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'There was a problem signing in.',
-        variant: 'destructive',
+      await signInWithNextAuth('google').then(({ ok, error }: any) => {
+        if (ok) {
+          window.location.assign(`/`);
+        } else {
+          console.log(error);
+          toast({
+            title: 'Error',
+            description: error,
+            variant: 'destructive',
+          });
+        }
       });
     } finally {
       setIsSigningInWithGoogle(false);

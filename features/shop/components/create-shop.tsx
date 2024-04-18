@@ -36,9 +36,9 @@ const CreateShop = ({}: CreateShopProps) => {
     },
   });
 
-  if (!shopModal.isOpen) {
-    shopModal.onClose();
-  }
+  // if (!shopModal.isOpen) {
+  //   shopModal.onClose();
+  // }
 
   const { postShopName, isPostingShopName } = useShop();
 
@@ -81,7 +81,7 @@ const CreateShop = ({}: CreateShopProps) => {
                     size='thin'
                     type='submit'
                   >
-                    Post
+                    Create
                   </Button>
                   <Button
                     isMagnetic={true}

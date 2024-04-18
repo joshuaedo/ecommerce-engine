@@ -19,7 +19,7 @@ export default function RootLayoutClient({
     <>
       <main className='container min-h-[100svh]'>{children}</main>
 
-      {/* {isMounted && <CreateShop />} */}
+      {isMounted && <CreateShop />}
 
       <Toaster />
     </>

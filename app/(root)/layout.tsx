@@ -14,13 +14,13 @@ export default async function HomeLayout({
   const userId = session?.user?.id ?? '';
 
   if (!userId) {
-    redirect('/sign-in');
+    return redirect('/sign-in');
   }
 
   const shop = await getShopByUserId(userId!);
 
   if (shop) {
-    redirect(`/${shop?.id}`);
+    return redirect(`/${shop?.id}`);
   }
   return <>{children}</>;
 }

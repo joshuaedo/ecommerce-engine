@@ -17,13 +17,13 @@ export default async function DashboardLayout({
   const userId = session?.user?.id ?? '';
 
   if (!userId) {
-    redirect('/sign-in');
+    return redirect('/sign-in');
   }
 
   const shop = await getShopById(params.shopId);
 
   if (!shop) {
-    redirect('/');
+    return redirect('/');
   }
   return (
     <div>
