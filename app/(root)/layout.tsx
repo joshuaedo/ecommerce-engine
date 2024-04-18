@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/features/auth/lib/next-auth';
-import { getShopByUserId } from '@/features/shop/lib/queries';
+import { getShopsByUserId } from '@/features/shop/lib/queries';
 // import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 
@@ -17,10 +17,10 @@ export default async function HomeLayout({
     return redirect('/sign-in');
   }
 
-  const shop = await getShopByUserId(userId!);
+  const shops = await getShopsByUserId(userId!);
 
-  if (shop) {
-    return redirect(`/${shop?.id}`);
+  if (shops) {
+    return redirect(`/${shops[0]?.id}`);
   }
   return <>{children}</>;
 }

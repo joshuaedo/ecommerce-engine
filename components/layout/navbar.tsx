@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '../common/dropdown-menu';
 import UserAvatar from '../common/user-avatar';
+import { ShopSwitcher } from '@/features/shop/components/shop-switcher';
+import useShop from '@/features/shop/hooks/use-shop';
 
 interface NavbarProps {}
 
@@ -29,11 +31,14 @@ const Navbar = ({}: NavbarProps) => {
       active: pathname === `/${params.shopId}/settings`,
     },
   ];
+
+  const { shops } = useShop();
+
   return (
     <nav className='border-b'>
-      <div className='flex h-16 items-center'>
-        <div>switcher</div>
-        <div className={cn('flex items-center space-x-4 lg:space-x-6 ')}>
+      <div className='flex h-16 items-center gap-3'>
+        <ShopSwitcher items={shops} />
+        <div className={cn('flex items-center gap-3')}>
           {routes.map((route) => (
             <Link
               href={route.href}

@@ -1,16 +1,11 @@
 import { db } from '@/lib/db';
 
-interface getShopOptions {
-  id?: string | undefined;
-  userId?: string | undefined;
-}
-
-const getShop = async ({ id, userId }: getShopOptions) => {
-  const whereCondition = id ? { id } : userId ? { userId } : {};
-
+const getShopById = async (id: string) => {
   try {
     const shop = await db.shop.findFirst({
-      where: whereCondition,
+      where: {
+        id,
+      },
     });
 
     return shop;
@@ -19,12 +14,18 @@ const getShop = async ({ id, userId }: getShopOptions) => {
   }
 };
 
-const getShopById = async (id: string) => {
-  return await getShop({ id });
+const getShopsByUserId = async (userId: string) => {
+  try {
+    const shop = await db.shop.findMany({
+      where: {
+        userId,
+      },
+    });
+
+    return shop;
+  } catch (error: any) {
+    throw new Error(`Failed to get shops: ${error.message}`);
+  }
 };
 
-const getShopByUserId = async (userId: string) => {
-  return await getShop({ userId });
-};
-
-export { getShopById, getShopByUserId };
+export { getShopById, getShopsByUserId };

@@ -2,13 +2,14 @@
 
 import { startTransition, useState } from 'react';
 // import { useRouter } from 'next/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { toast } from '@/hooks/use-toast';
 import { useCustomToast } from '@/hooks/use-custom-toast';
 import { CreateShopType, ShopType } from '../types/validators';
 // import { useAuth } from '@clerk/nextjs';
 import { useSession } from 'next-auth/react';
+import { Shop } from '@prisma/client';
 
 const useShop = () => {
   // const router = useRouter();
@@ -52,9 +53,25 @@ const useShop = () => {
     },
   });
 
+  const {
+    data: shops,
+    isFetched: isGottenShops,
+    isFetching: isGettingShops,
+  } = useQuery({
+    queryFn: async () => {
+      const { data } = await axios.get(`/api/shop/get`);
+      return data as Shop[];
+    },
+    queryKey: ['shops'],
+    enabled: true,
+  });
+
   return {
     postShopName,
     isPostingShopName,
+    shops,
+    isGettingShops,
+    isGottenShops,
   };
 };
 
