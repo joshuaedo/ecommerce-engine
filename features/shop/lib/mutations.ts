@@ -1,5 +1,10 @@
 import { db } from '@/lib/db';
-import { CreateShopType } from '../types/validators';
+import {
+  CreateShopType,
+  DeleteShopType,
+  ShopType,
+  UpdateShopType,
+} from '../types/validators';
 
 const createNewShop = async (data: CreateShopType) => {
   try {
@@ -13,4 +18,35 @@ const createNewShop = async (data: CreateShopType) => {
   }
 };
 
-export { createNewShop };
+const updateShop = async (data: UpdateShopType) => {
+  try {
+    const shop = await db.shop.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        name: data?.name,
+      },
+    });
+
+    return shop;
+  } catch (error: any) {
+    throw new Error(`Failed to update shop: ${error.message}`);
+  }
+};
+
+const deleteShop = async ({ id }: DeleteShopType) => {
+  try {
+    const shop = await db.shop.delete({
+      where: {
+        id,
+      },
+    });
+
+    return shop;
+  } catch (error: any) {
+    throw new Error(`Failed to delete shop: ${error.message}`);
+  }
+};
+
+export { createNewShop, updateShop, deleteShop };

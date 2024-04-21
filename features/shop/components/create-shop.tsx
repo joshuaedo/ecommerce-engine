@@ -36,11 +36,7 @@ const CreateShop = ({}: CreateShopProps) => {
     },
   });
 
-  // if (!shopModal.isOpen) {
-  //   shopModal.onClose();
-  // }
-
-  const { postShopName, isPostingShopName } = useShop();
+  const { postShopName, isCreatingShop } = useShop();
 
   return (
     <>
@@ -67,7 +63,7 @@ const CreateShop = ({}: CreateShopProps) => {
                           className='border border-transparent shadow-md placeholder:text-background dark:border-[#333333] '
                           placeholder="What's the name of your shop?"
                           autoFocus
-                          disabled={isPostingShopName}
+                          disabled={isCreatingShop}
                           ref={inputRef}
                         />
                       </FormControl>
@@ -76,7 +72,7 @@ const CreateShop = ({}: CreateShopProps) => {
                 />
                 <div className='flex items-center justify-between'>
                   <Button
-                    isLoading={isPostingShopName}
+                    isLoading={isCreatingShop}
                     isMagnetic={true}
                     size='thin'
                     type='submit'
@@ -91,7 +87,7 @@ const CreateShop = ({}: CreateShopProps) => {
                     size='thin'
                     type='submit'
                     variant='outline'
-                    disabled={isPostingShopName}
+                    disabled={isCreatingShop}
                   >
                     Cancel
                   </Button>

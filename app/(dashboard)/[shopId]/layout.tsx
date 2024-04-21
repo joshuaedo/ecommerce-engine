@@ -25,6 +25,7 @@ export default async function DashboardLayout({
   if (!shop) {
     return redirect('/');
   }
+  
   return (
     <div>
       <Navbar />
