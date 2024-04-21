@@ -11,11 +11,9 @@ import {
   ShopType,
   UpdateShopType,
 } from '../types/validators';
-// import { useAuth } from '@clerk/nextjs';
 import { useSession } from 'next-auth/react';
 
 const useShop = (id?: string) => {
-  // const user = useAuth();
   const { loginToast } = useCustomToast();
   const session = useSession();
   const userId = session?.data?.user?.id ?? '';

@@ -1,6 +1,5 @@
 'use client';
 
-// import { UserButton } from '@clerk/nextjs';
 import { cn } from '@/lib/utils';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -55,7 +54,6 @@ const Navbar = ({}: NavbarProps) => {
           ))}
         </div>
         <div className='ml-auto flex items-center space-x-4'>
-          {/* <UserButton afterSignOutUrl='/' /> */}
           {shopUser ? (
             <div
               className={buttonVariants(false)({

@@ -1,4 +1,4 @@
-import SignUpForm from '@/features/auth/components/next-auth/sign-up';
+import SignUpForm from '@/features/auth/components/sign-up';
 
 interface SignUpPageProps {}
 

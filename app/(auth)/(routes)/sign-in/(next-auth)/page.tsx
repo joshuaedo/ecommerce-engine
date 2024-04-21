@@ -1,4 +1,4 @@
-import SignInForm from '@/features/auth/components/next-auth/sign-in';
+import SignInForm from '@/features/auth/components/sign-in';
 
 interface SignInPageProps {}
 
