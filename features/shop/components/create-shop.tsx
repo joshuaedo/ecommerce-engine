@@ -85,7 +85,6 @@ const CreateShop = ({}: CreateShopProps) => {
                       shopModal.onClose();
                     }}
                     size='thin'
-                    type='submit'
                     variant='outline'
                     disabled={isCreatingShop}
                   >

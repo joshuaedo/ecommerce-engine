@@ -17,23 +17,24 @@ import { UpdateShopType, UpdateShopValidator } from '../types/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
 import useShop from '../hooks/use-shop';
 import { Input } from '@/components/common/input';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DeleteShop from './delete-shop';
+import { ApiAlert } from '@/components/common/api-alert';
+import useOrigin from '@/hooks/use-origin';
+import { ImageUpload } from '@/components/common/image-upload';
 
 interface ShopSettingsFormProps {
   initialShopData: Shop;
 }
 
 const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const form = useForm<UpdateShopType>({
     resolver: zodResolver(UpdateShopValidator),
     defaultValues: initialShopData,
   });
-
   const { updateShop, isUpdatingShop } = useShop(initialShopData.id);
+  const origin = useOrigin();
 
   return (
     <>
@@ -50,7 +51,25 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           onSubmit={form.handleSubmit((e) => updateShop(e))}
           className='space-y-4'
         >
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='space-y-4'>
+            {/* <FormField
+              control={form.control}
+              name='imageUrl'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      disabled={isUpdatingShop}
+                      value={field.value ? [field.value] : []}
+                      onChange={(url) => field.onChange(url)}
+                      onRemove={() => field.onChange('')}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            /> */}
             <FormField
               control={form.control}
               name='name'
@@ -60,7 +79,7 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
                   <FormControl>
                     <Input
                       {...field}
-                      className='border border-transparent placeholder:text-background dark:border-[#333333]'
+                      className='placeholder:text-background'
                       placeholder='Enter your shop name'
                       autoFocus
                     />
@@ -70,22 +89,22 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
               )}
             />
           </div>
-          <div className='flex items-center gap-2 pb-4'>
+          <div className='flex items-center gap-2'>
             <Button
               isLoading={isUpdatingShop}
               isMagnetic={true}
               size='thin'
               type='submit'
             >
-              Post
+              Save changes
             </Button>
             <Button
               isMagnetic={true}
               onClick={() => {
+                form.reset();
                 router.back();
               }}
               size='thin'
-              type='submit'
               variant='outline'
             >
               Cancel
@@ -93,6 +112,12 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           </div>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert
+        title='NEXT_PUBLIC_API_URL'
+        description={`${origin}/api/${initialShopData.id}`}
+        variant='public'
+      />
     </>
   );
 };

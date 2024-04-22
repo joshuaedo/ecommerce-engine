@@ -25,6 +25,11 @@ const Navbar = ({}: NavbarProps) => {
   const shopUser = session?.user;
   const routes = [
     {
+      href: `/${params.shopId}`,
+      label: 'Dashboard',
+      active: pathname === `/${params.shopId}`,
+    },
+    {
       href: `/${params.shopId}/settings`,
       label: 'Settings',
       active: pathname === `/${params.shopId}/settings`,
@@ -44,9 +49,7 @@ const Navbar = ({}: NavbarProps) => {
               key={route.label}
               className={cn(
                 'text-sm font-medium transition-colors hover:text-primary',
-                route?.active
-                  ? 'text-black dark:text-white'
-                  : 'text-muted-foreground'
+                route?.active ? '' : 'text-muted-foreground'
               )}
             >
               {route.label}
