@@ -1,6 +1,5 @@
 import { getAuthSession } from '@/features/auth/lib/next-auth';
-import { getShopsByUserId } from '@/features/shop/lib/queries';
-// import { GetShopsValidator } from '@/features/shop/types/validators';
+import { getShopById, getShopsByUserId } from '@/features/shop/lib/queries';
 import { z } from 'zod';
 
 export async function GET(req: Request) {
@@ -9,8 +8,30 @@ export async function GET(req: Request) {
 
     const userId = session?.user?.id;
 
+    const url = new URL(req.url);
+
+    const shopId = url.searchParams.get('shopId');
+
+    const shopSlug = url.searchParams.get('shopSlug');
+
     if (!userId) {
       return new Response('Unauthorized', { status: 401 });
+    }
+
+    if (shopId && !shopSlug) {
+      const shop = await getShopById(shopId);
+
+      return new Response(JSON.stringify(shop), { status: 200 });
+    }
+
+    if (shopId && shopSlug) {
+      const shop = await getShopById(shopId);
+      const stringifiedShop = JSON.stringify({
+        ...shop,
+        slug: shopSlug,
+      });
+
+      return new Response(stringifiedShop, { status: 200 });
     }
 
     const shops = await getShopsByUserId(userId);

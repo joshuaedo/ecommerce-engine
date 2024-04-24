@@ -7,6 +7,7 @@ import { Button } from './button';
 import { copyToClipboard } from '@/lib/utils';
 import useOrigin from '@/hooks/use-origin';
 import { useParams } from 'next/navigation';
+import useMounted from '@/hooks/use-mounted';
 
 interface ApiAlertProps {
   title: string;
@@ -36,7 +37,7 @@ const ApiAlert = ({
         {title}
         <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
       </AlertTitle>
-      <AlertDescription className='mt-4 flex items-center justify-between'>
+      <AlertDescription className='mt-4 flex items-center justify-between  gap-x-4'>
         <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font font-semibold'>
           {description}
         </code>
@@ -62,24 +63,25 @@ interface ApiListProps {
 const ApiList = ({ entityName, entitySlugName }: ApiListProps) => {
   const params = useParams();
   const origin = useOrigin();
+  const isMounted = useMounted();
 
   const baseUrl = `${origin}/api`;
 
   const alerts: ApiAlertProps[] = [
     {
-      title: 'GET',
-      variant: 'public',
-      description: `${baseUrl}/${entityName}?shopId=${params.shopId}`,
-    },
-    {
-      title: 'GET',
-      variant: 'public',
-      description: `${baseUrl}/${entityName}?shopId=${params.shopId}?${entitySlugName}={${entitySlugName}}`,
-    },
-    {
       title: 'CREATE',
       variant: 'admin',
       description: `${baseUrl}/${entityName}/create`,
+    },
+    {
+      title: 'GET',
+      variant: 'public',
+      description: `${baseUrl}/${entityName}/get?shopId=${params.shopId}`,
+    },
+    {
+      title: 'GET',
+      variant: 'public',
+      description: `${baseUrl}/${entityName}/get?shopId=${params.shopId}&${entitySlugName}={${entitySlugName}}`,
     },
     {
       title: 'UPDATE',
@@ -96,16 +98,18 @@ const ApiList = ({ entityName, entitySlugName }: ApiListProps) => {
   // TODO: remove redirect
 
   return (
-    <>
-      {alerts.map((alert) => (
-        <ApiAlert
-          key={alert.title}
-          title={alert.title}
-          description={alert.description}
-          variant={alert.variant}
-        />
-      ))}
-    </>
+    isMounted && (
+      <>
+        {alerts.map((alert) => (
+          <ApiAlert
+            key={alert.title}
+            title={alert.title}
+            description={alert.description}
+            variant={alert.variant}
+          />
+        ))}
+      </>
+    )
   );
 };
 

@@ -76,7 +76,9 @@ const useCategory = () => {
     isFetching: isGettingCategories,
   } = useQuery({
     queryFn: async () => {
-      const { data } = await axios.get(`/api/categories/get?shopId=${params.shopId}`);
+      const { data } = await axios.get(
+        `/api/categories/get?shopId=${params.shopId}`
+      );
       return data as Category[];
     },
     queryKey: ['categories'],

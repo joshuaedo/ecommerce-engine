@@ -19,7 +19,7 @@ import useShop from '../hooks/use-shop';
 import { Input } from '@/components/common/input';
 import { useRouter } from 'next/navigation';
 import DeleteShop from './delete-shop';
-import { ApiAlert } from '@/components/common/api';
+import { ApiAlert, ApiList } from '@/components/common/api';
 import useOrigin from '@/hooks/use-origin';
 
 interface ShopSettingsFormProps {
@@ -94,11 +94,8 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
         </form>
       </Form>
       <Separator />
-      <ApiAlert
-        title='NEXT_PUBLIC_API_URL'
-        description={`${origin}/api/${initialShopData.id}`}
-        variant='public'
-      />
+      <Header title='API' description={`API calls for shops`} />
+      <ApiList entityName='shop' entitySlugName='shopSlug' />
     </>
   );
 };
