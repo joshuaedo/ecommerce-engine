@@ -6,7 +6,7 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
- 
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -47,9 +47,25 @@ model User {
 }
 
 model Shop {
+  id         String     @id @default(uuid())
+  name       String
+  userId     String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  categories Category[] @relation("ShopToCategory")
+}
+
+model Category {
   id        String   @id @default(uuid())
   name      String
+  shopId    String
+  slug      String
   userId    String
+  imageUrl  String?
+  shop      Shop     @relation("ShopToCategory", fields: [shopId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([shopId])
+  @@index([slug])
 }

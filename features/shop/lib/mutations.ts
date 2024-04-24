@@ -2,7 +2,6 @@ import { db } from '@/lib/db';
 import {
   CreateShopType,
   DeleteShopType,
-  ShopType,
   UpdateShopType,
 } from '../types/validators';
 

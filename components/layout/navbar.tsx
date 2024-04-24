@@ -30,9 +30,14 @@ const Navbar = ({}: NavbarProps) => {
       active: pathname === `/${params.shopId}`,
     },
     {
+      href: `/${params.shopId}/categories`,
+      label: 'Categories',
+      active: pathname.includes(`/categories`),
+    },
+    {
       href: `/${params.shopId}/settings`,
       label: 'Settings',
-      active: pathname === `/${params.shopId}/settings`,
+      active: pathname.includes(`/settings`),
     },
   ];
 

@@ -28,4 +28,23 @@ const getShopsByUserId = async (userId: string) => {
   }
 };
 
-export { getShopById, getShopsByUserId };
+const checkShopOwner = async (shopId: string, userId: string) => {
+  try {
+    const shop = await db.shop.findFirst({
+      where: {
+        id: shopId,
+        userId,
+      },
+    });
+
+    if (!shop) {
+      return false;
+    }
+
+    return true;
+  } catch (error: any) {
+    throw new Error(`Failed to get shop: ${error.message}`);
+  }
+};
+
+export { getShopById, getShopsByUserId, checkShopOwner };

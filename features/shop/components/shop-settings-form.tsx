@@ -19,9 +19,8 @@ import useShop from '../hooks/use-shop';
 import { Input } from '@/components/common/input';
 import { useRouter } from 'next/navigation';
 import DeleteShop from './delete-shop';
-import { ApiAlert } from '@/components/common/api-alert';
+import { ApiAlert } from '@/components/common/api';
 import useOrigin from '@/hooks/use-origin';
-import { ImageUpload } from '@/components/common/image-upload';
 
 interface ShopSettingsFormProps {
   initialShopData: Shop;
@@ -52,24 +51,6 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           className='space-y-4'
         >
           <div className='space-y-4'>
-            {/* <FormField
-              control={form.control}
-              name='imageUrl'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Image</FormLabel>
-                  <FormControl>
-                    <ImageUpload
-                      disabled={isUpdatingShop}
-                      value={field.value ? [field.value] : []}
-                      onChange={(url) => field.onChange(url)}
-                      onRemove={() => field.onChange('')}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            /> */}
             <FormField
               control={form.control}
               name='name'

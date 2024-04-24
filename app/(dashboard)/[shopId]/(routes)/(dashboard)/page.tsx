@@ -4,14 +4,12 @@ interface DashboardPageProps {
   params: { shopId: string };
 }
 
+const Dashboard = () => <></>;
+
 const DashboardPage = async ({ params }: DashboardPageProps) => {
   const shop = await getShopById(params.shopId);
 
-  return (
-    <div>
-      <h1>{shop?.name}</h1>
-    </div>
-  );
+  return <Dashboard />;
 };
 
 export default DashboardPage;

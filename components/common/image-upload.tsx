@@ -22,6 +22,8 @@ export const ImageUpload = ({
   const isMounted = useMounted();
 
   const onUpload = (res: any) => {
+    // console.log(res);
+    // console.log(res.info.secure_url);
     onChange(res.info.secure_url);
   };
 
@@ -56,7 +58,7 @@ export const ImageUpload = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUploadAdded={onUpload} uploadPreset='kk8azqqz'>
+      <CldUploadWidget onSuccess={onUpload} uploadPreset='kk8azqqz'>
         {({ open }) => (
           <Button
             variant='secondary'

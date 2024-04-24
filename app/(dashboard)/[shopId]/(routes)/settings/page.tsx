@@ -14,13 +14,7 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
     return null;
   }
 
-  return (
-    <div className='flex flex-col'>
-      <div className='flex-1 space-y-4 py-4'>
-        <ShopSettingsForm initialShopData={shop} />
-      </div>
-    </div>
-  );
+  return <ShopSettingsForm initialShopData={shop} />;
 };
 
 export default SettingsPage;

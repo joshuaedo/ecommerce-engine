@@ -1,3 +1,4 @@
+import { Header } from '@/components/common/header';
 import Navbar from '@/components/layout/navbar';
 import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { getShopById } from '@/features/shop/lib/queries';
@@ -24,9 +25,12 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div>
+    <>
       <Navbar />
-      {children}
-    </div>
+      <div className='flex flex-col'>
+        <div className='flex-1 space-y-4 py-4'>
+          {children}</div>
+      </div>
+    </>
   );
 }

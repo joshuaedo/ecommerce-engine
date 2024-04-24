@@ -7,7 +7,6 @@ export default async function HomeLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const session = await getAuthSession();
   const userId = session?.user?.id ?? '';
 
