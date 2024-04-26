@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Admin is a standalone CMS (Content Management System) built with Next.js. It serves as the administration interface for managing data and settings for e-commerce websites.
+Admin, a fully functional CMS (Content Management System), is built using Next.js. This independent application serves as an administrative interface that allows users to manage data and settings for their websites effortlessly.
 
 ### Frameworks
 
