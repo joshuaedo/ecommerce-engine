@@ -1,12 +1,10 @@
-import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { getShopById, getShopsByCreatorId } from '@/features/shop/lib/queries';
+import { getLoggedInUserId } from '@/features/user/lib/queries';
 import { z } from 'zod';
 
 export async function GET(req: Request) {
   try {
-    const session = await getAuthSession();
-
-    const userId = session?.user?.id;
+    const userId = await getLoggedInUserId();
 
     const url = new URL(req.url);
 

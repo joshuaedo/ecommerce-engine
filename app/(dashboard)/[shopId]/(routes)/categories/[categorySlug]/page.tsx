@@ -1,6 +1,6 @@
-import { getAuthSession } from '@/features/auth/lib/next-auth';
 import CategorySettingsForm from '@/features/categories/components/category-settings-form';
 import { getCategoryBySlug } from '@/features/categories/lib/queries';
+import { getLoggedInUserId } from '@/features/user/lib/queries';
 
 interface CategoryPageProps {
   params: {
@@ -12,7 +12,7 @@ interface CategoryPageProps {
 const CategoryPage = async ({
   params: { categorySlug, shopId },
 }: CategoryPageProps) => {
-  const session = await getAuthSession();
+  const userId = await getLoggedInUserId();
   const category = await getCategoryBySlug(categorySlug);
 
   const categoryObject = Array.isArray(category) ? category[0] : category;
@@ -22,7 +22,7 @@ const CategoryPage = async ({
       <CategorySettingsForm
         initialCategoryData={categoryObject}
         shopId={shopId}
-        userId={session?.user?.id}
+        userId={userId}
       />
     </div>
   );

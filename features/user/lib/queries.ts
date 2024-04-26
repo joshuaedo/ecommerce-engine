@@ -1,5 +1,5 @@
+import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { db } from '@/lib/db';
-import { User } from '@prisma/client';
 
 type getUserOptions = {
   username?: string | undefined;
@@ -29,4 +29,20 @@ const getUserByEmail = async (email: string | undefined | null) => {
   return await getUser({ email });
 };
 
-export { getUserByUsername, getUserById, getUserByEmail, getUser };
+const getLoggedInUserId = async () => {
+  const session = await getAuthSession();
+  return session?.user?.id;
+};
+const getLoggedInUserFromDb = async () => {
+  const session = await getAuthSession();
+  return getUserById(session?.user?.id);
+};
+
+export {
+  getUserByUsername,
+  getUserById,
+  getUserByEmail,
+  getUser,
+  getLoggedInUserId,
+  getLoggedInUserFromDb,
+};

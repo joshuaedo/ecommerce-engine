@@ -1,14 +1,12 @@
-import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { createNewCategory } from '@/features/categories/lib/mutations';
 import { CreateCategoryValidator } from '@/features/categories/types/validators';
 import { checkShopOwner } from '@/features/shop/lib/queries';
+import { getLoggedInUserId } from '@/features/user/lib/queries';
 import { z } from 'zod';
 
 export async function PATCH(req: Request) {
   try {
-    const session = await getAuthSession();
-
-    const userId = session?.user?.id;
+    const userId = await getLoggedInUserId();
 
     const body = await req.json();
 

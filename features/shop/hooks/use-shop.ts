@@ -10,13 +10,12 @@ import {
   DeleteShopType,
   UpdateShopType,
 } from '../types/validators';
-import { useSession } from 'next-auth/react';
 import { Shop } from '@prisma/client';
+import useShopUser from '@/features/user/hooks/use-shop-user';
 
 const useShop = (id?: string) => {
   const { loginToast } = useCustomToast();
-  const session = useSession();
-  const userId = session?.data?.user?.id ?? '';
+  const { userId } = useShopUser();
 
   // create shop
   const {

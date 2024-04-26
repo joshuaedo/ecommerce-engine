@@ -1,6 +1,6 @@
-import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { deleteCategory } from '@/features/categories/lib/mutations';
 import { DeleteCategoryValidator } from '@/features/categories/types/validators';
+import { getLoggedInUserId } from '@/features/user/lib/queries';
 import { z } from 'zod';
 
 export async function PATCH(req: Request) {
@@ -9,9 +9,7 @@ export async function PATCH(req: Request) {
 
     const categorySlug = DeleteCategoryValidator.parse(body);
 
-    const session = await getAuthSession();
-
-    const userId = session?.user?.id;
+    const userId = await getLoggedInUserId();
 
     if (!userId) {
       return new Response('Unauthenticated', { status: 401 });

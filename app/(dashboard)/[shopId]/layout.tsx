@@ -1,7 +1,6 @@
-import { Header } from '@/components/common/header';
 import Navbar from '@/components/layout/navbar';
-import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { getShopById } from '@/features/shop/lib/queries';
+import { getLoggedInUserId } from '@/features/user/lib/queries';
 import { redirect } from 'next/navigation';
 
 export default async function DashboardLayout({
@@ -11,8 +10,7 @@ export default async function DashboardLayout({
   children: React.ReactNode;
   params: { shopId: string };
 }>) {
-  const session = await getAuthSession();
-  const userId = session?.user?.id ?? '';
+  const userId = await getLoggedInUserId();
 
   if (!userId) {
     return redirect('/sign-in');

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import { buttonVariants } from '../common/button';
@@ -15,15 +15,16 @@ import {
 import UserAvatar from '../common/user-avatar';
 import { ShopSwitcher } from '@/features/shop/components/shop-switcher';
 import useShop from '@/features/shop/hooks/use-shop';
+import useShopUser from '@/features/user/hooks/use-shop-user';
 
 interface NavbarProps {}
 
 const Navbar = ({}: NavbarProps) => {
   const pathname = usePathname();
   const params = useParams();
-  const { data: session } = useSession();
-  const shopUser = session?.user;
+  const { user: shopUser } = useShopUser();
   // console.log(shopUser);
+  const { shops } = useShop();
   const routes = [
     {
       href: `/${params.shopId}`,
@@ -46,8 +47,6 @@ const Navbar = ({}: NavbarProps) => {
       active: pathname.includes(`/settings`),
     },
   ];
-
-  const { shops } = useShop();
 
   return (
     <nav className='border-b'>
