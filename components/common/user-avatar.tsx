@@ -5,6 +5,7 @@ import { AvatarProps } from '@radix-ui/react-avatar';
 
 import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 import { Icons } from './icons';
+import Image from 'next/image';
 
 interface UserAvatarProps extends AvatarProps {
   user:
@@ -20,10 +21,18 @@ const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
   return (
     <Avatar {...props}>
       {user?.image ? (
-        <AvatarImage
-          src={user.image}
-          alt='profile picture'
-          referrerPolicy='no-referrer'
+        // <AvatarImage
+        //   src={user.image}
+        //   alt='profile picture'
+        //   referrerPolicy='no-referrer'
+        // />
+        // TODO: make general image cleaner utility function
+        <Image
+          src={user.image?.replace('=s96-c', '')}
+          alt={user?.name ?? 'profile picture'}
+          width={96}
+          height={96}
+          className='size-5'
         />
       ) : (
         <AvatarFallback>

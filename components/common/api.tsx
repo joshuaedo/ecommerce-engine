@@ -95,8 +95,6 @@ const ApiList = ({ entityName, entitySlugName }: ApiListProps) => {
     },
   ];
 
-  // TODO: remove redirect
-
   return (
     isMounted && (
       <>

@@ -34,38 +34,88 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?
-  emailVerified DateTime?
-  username      String?   @unique
-  image         String?
-  birthday      String?
-  password      String?
-  accounts      Account[]
-  sessions      Session[]
+  id                String     @id @default(cuid())
+  name              String?
+  email             String?    @unique
+  emailVerified     DateTime?
+  username          String?    @unique
+  image             String?
+  birthday          String?
+  password          String?
+  signUpDate        DateTime   @default(now())
+  updatedDate       DateTime   @updatedAt
+  accounts          Account[]
+  sessions          Session[]
+  createdShops      Shop[]     @relation("UserToShop")
+  createdCategories Category[] @relation("UserToCategory")
+  createdProducts   Product[]  @relation("UserToProduct")
+  createdImages     Image[]    @relation("UserToImage")
+
+  @@unique([email, username])
 }
 
 model Shop {
   id         String     @id @default(uuid())
   name       String
-  userId     String
+  slug       String?
+  creatorId  String
+  creator    User       @relation("UserToShop", fields: [creatorId], references: [id])
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   categories Category[] @relation("ShopToCategory")
+  products   Product[]  @relation("ShopToProduct")
+
+  @@unique([slug])
 }
 
 model Category {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
-  shopId    String
   slug      String
-  userId    String
-  imageUrl  String?
-  shop      Shop     @relation("ShopToCategory", fields: [shopId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  images    Image[]   @relation("CategoryToImage")
+  creatorId String
+  creator   User      @relation("UserToCategory", fields: [creatorId], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  shopId    String
+  shop      Shop      @relation("ShopToCategory", fields: [shopId], references: [id])
+  products  Product[] @relation("CategoryToProduct")
 
-  @@index([shopId])
-  @@index([slug])
+  @@unique([slug])
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String
+  images      Image[]  @relation("ProductToImage")
+  price       Decimal
+  description String
+  categoryId  String
+  category    Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  creatorId   String
+  creator     User     @relation("UserToProduct", fields: [creatorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  isFeatured  Boolean  @default(false)
+  isArchived  Boolean  @default(false)
+  shopId      String
+  shop        Shop     @relation("ShopToProduct", fields: [shopId], references: [id])
+
+  @@unique([slug])
+}
+
+model Image {
+  id         String   @id @default(cuid())
+  url        String
+  productId  String?
+  product    Product? @relation("ProductToImage", fields: [productId], references: [id], onDelete: Cascade)
+  categoryId String
+  category   Category @relation("CategoryToImage", fields: [categoryId], references: [id], onDelete: Cascade)
+  creatorId  String
+  creator    User     @relation("UserToImage", fields: [creatorId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@unique([url])
 }

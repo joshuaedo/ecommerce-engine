@@ -28,8 +28,7 @@ export default async function DashboardLayout({
     <>
       <Navbar />
       <div className='flex flex-col'>
-        <div className='flex-1 space-y-4 py-4'>
-          {children}</div>
+        <div className='flex-1 space-y-4 py-4'>{children}</div>
       </div>
     </>
   );

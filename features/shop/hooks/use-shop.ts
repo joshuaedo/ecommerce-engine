@@ -8,10 +8,10 @@ import { useCustomToast } from '@/hooks/use-custom-toast';
 import {
   CreateShopType,
   DeleteShopType,
-  ShopType,
   UpdateShopType,
 } from '../types/validators';
 import { useSession } from 'next-auth/react';
+import { Shop } from '@prisma/client';
 
 const useShop = (id?: string) => {
   const { loginToast } = useCustomToast();
@@ -27,10 +27,10 @@ const useShop = (id?: string) => {
     mutationFn: async ({ name }: CreateShopType) => {
       const payload: CreateShopType = {
         name,
-        userId,
+        creatorId: userId,
       };
       const { data } = await axios.patch(`/api/shop/create`, payload);
-      return data as ShopType;
+      return data as Shop;
     },
     onError: (err) => {
       console.log(err);
@@ -62,7 +62,7 @@ const useShop = (id?: string) => {
   } = useQuery({
     queryFn: async () => {
       const { data } = await axios.get(`/api/shop/get`);
-      return data as ShopType[];
+      return data as Shop[];
     },
     queryKey: ['shops'],
     enabled: true,
@@ -77,7 +77,7 @@ const useShop = (id?: string) => {
     mutationFn: async (shopUpdate: UpdateShopType) => {
       const payload: UpdateShopType = shopUpdate;
       const { data } = await axios.patch(`/api/shop/update`, payload);
-      return data as ShopType;
+      return data as Shop;
     },
     onError: (err) => {
       console.log(err);
@@ -110,7 +110,7 @@ const useShop = (id?: string) => {
     mutationFn: async ({ id }: DeleteShopType) => {
       const payload: DeleteShopType = { id };
       const { data } = await axios.patch(`/api/shop/delete`, payload);
-      return data as ShopType;
+      return data as Shop;
     },
     onError: (err) => {
       console.log(err);

@@ -58,7 +58,6 @@ const EmptyCategories = () => {
           <Plus className='mr-4 size-4' />
         </Button>
       </div>
-      <Separator />
     </>
   );
 };

@@ -1,3 +1,4 @@
+import { getAuthSession } from '@/features/auth/lib/next-auth';
 import { createNewShop } from '@/features/shop/lib/mutations';
 import { CreateShopValidator } from '@/features/shop/types/validators';
 import { z } from 'zod';
@@ -6,10 +7,14 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, userId } = CreateShopValidator.parse(body);
+    const { name, creatorId } = CreateShopValidator.parse(body);
+
+    const session = await getAuthSession();
+
+    const userId = session?.user?.id;
 
     if (!userId) {
-      return new Response('Unauthorized', { status: 401 });
+      return new Response('Unauthenticated', { status: 401 });
     }
 
     if (!name.trim()) {
@@ -18,7 +23,7 @@ export async function PATCH(req: Request) {
 
     const newShop = await createNewShop({
       name,
-      userId,
+      creatorId,
     });
 
     return new Response(JSON.stringify(newShop), { status: 200 });

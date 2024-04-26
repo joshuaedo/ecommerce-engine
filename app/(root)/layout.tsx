@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/features/auth/lib/next-auth';
-import { getShopsByUserId } from '@/features/shop/lib/queries';
+import { getShopsByCreatorId } from '@/features/shop/lib/queries';
 import { redirect } from 'next/navigation';
 
 export default async function HomeLayout({
@@ -14,7 +14,7 @@ export default async function HomeLayout({
     return redirect('/sign-in');
   }
 
-  const shops = await getShopsByUserId(userId!);
+  const shops = await getShopsByCreatorId(userId!);
 
   if (shops) {
     return redirect(`/${shops[0]?.id}`);

@@ -1,5 +1,5 @@
 import { getAuthSession } from '@/features/auth/lib/next-auth';
-import { getShopById, getShopsByUserId } from '@/features/shop/lib/queries';
+import { getShopById, getShopsByCreatorId } from '@/features/shop/lib/queries';
 import { z } from 'zod';
 
 export async function GET(req: Request) {
@@ -34,7 +34,7 @@ export async function GET(req: Request) {
       return new Response(stringifiedShop, { status: 200 });
     }
 
-    const shops = await getShopsByUserId(userId);
+    const shops = await getShopsByCreatorId(userId);
 
     return new Response(JSON.stringify(shops), { status: 200 });
   } catch (error) {

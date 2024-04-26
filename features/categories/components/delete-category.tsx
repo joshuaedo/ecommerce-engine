@@ -83,6 +83,7 @@ const DeleteCategory = ({
           <Button
             isMagnetic={true}
             size='thin'
+            type='button'
             variant='outline'
             disabled={isDeletingCategory}
             onClick={closeDialog}

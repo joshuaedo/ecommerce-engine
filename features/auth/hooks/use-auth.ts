@@ -107,12 +107,17 @@ const useAuth = () => {
   };
 
   return {
-    signUpWithEmailAndPassword,
-    signInWithEmailAndPassword,
     signInWithGoogle,
-    isSigningUpWithEmailAndPassword,
-    isSigningInWithEmailAndPassword,
     isSigningInWithGoogle,
+
+    signInWithEmailAndPassword,
+    isSigningInWithEmailAndPassword,
+
+    signUpWithGoogle: signInWithGoogle,
+    isSigningUpWithGoogle: isSigningInWithGoogle,
+
+    signUpWithEmailAndPassword,
+    isSigningUpWithEmailAndPassword,
   };
 };
 

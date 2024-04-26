@@ -14,11 +14,11 @@ const getShopById = async (id: string) => {
   }
 };
 
-const getShopsByUserId = async (userId: string) => {
+const getShopsByCreatorId = async (creatorId: string) => {
   try {
     const shop = await db.shop.findMany({
       where: {
-        userId,
+        creatorId,
       },
     });
 
@@ -28,12 +28,12 @@ const getShopsByUserId = async (userId: string) => {
   }
 };
 
-const checkShopOwner = async (shopId: string, userId: string) => {
+const checkShopOwner = async (shopId: string, creatorId: string) => {
   try {
     const shop = await db.shop.findFirst({
       where: {
         id: shopId,
-        userId,
+        creatorId,
       },
     });
 
@@ -47,4 +47,4 @@ const checkShopOwner = async (shopId: string, userId: string) => {
   }
 };
 
-export { getShopById, getShopsByUserId, checkShopOwner };
+export { getShopById, getShopsByCreatorId, checkShopOwner };

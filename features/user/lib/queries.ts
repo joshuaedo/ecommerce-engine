@@ -8,19 +8,11 @@ type getUserOptions = {
 };
 
 const getUser = async ({ username, id, email }: getUserOptions) => {
-  const where = username ? { username } : email ? { email } : {};
+  const where = id ? { id } : username ? { username } : email ? { email } : {};
 
-  let user: User | null;
-
-  if (id) {
-    user = await db.user.findUnique({
-      where: { id },
-    });
-  } else {
-    user = await db.user.findFirst({
-      where,
-    });
-  }
+  const user = await db.user.findFirst({
+    where,
+  });
 
   return user;
 };

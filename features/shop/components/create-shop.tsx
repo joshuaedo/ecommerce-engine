@@ -32,7 +32,7 @@ const CreateShop = ({}: CreateShopProps) => {
     resolver: zodResolver(CreateShopValidator),
     defaultValues: {
       name: '',
-      userId: '',
+      creatorId: '',
     },
   });
 
@@ -85,6 +85,7 @@ const CreateShop = ({}: CreateShopProps) => {
                       shopModal.onClose();
                     }}
                     size='thin'
+                    type='button'
                     variant='outline'
                     disabled={isCreatingShop}
                   >

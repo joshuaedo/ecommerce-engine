@@ -19,8 +19,6 @@ import useShop from '../hooks/use-shop';
 import { Input } from '@/components/common/input';
 import { useRouter } from 'next/navigation';
 import DeleteShop from './delete-shop';
-import { ApiAlert, ApiList } from '@/components/common/api';
-import useOrigin from '@/hooks/use-origin';
 
 interface ShopSettingsFormProps {
   initialShopData: Shop;
@@ -33,7 +31,6 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
     defaultValues: initialShopData,
   });
   const { updateShop, isUpdatingShop } = useShop(initialShopData.id);
-  const origin = useOrigin();
 
   return (
     <>
@@ -85,6 +82,7 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
                 form.reset();
                 router.back();
               }}
+              type='button'
               size='thin'
               variant='outline'
             >
@@ -93,9 +91,6 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           </div>
         </form>
       </Form>
-      <Separator />
-      <Header title='API' description={`API calls for shops`} />
-      <ApiList entityName='shop' entitySlugName='shopSlug' />
     </>
   );
 };

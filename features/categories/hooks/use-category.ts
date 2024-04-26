@@ -35,14 +35,14 @@ const useCategory = () => {
       imageUrl,
       shopId,
       slug,
-      userId,
+      creatorId,
     }: CreateCategoryType) => {
       const payload: CreateCategoryType = {
         name,
         imageUrl,
         shopId,
         slug,
-        userId,
+        creatorId,
       };
       const { data } = await axios.patch(`/api/categories/create`, payload);
       return data as Category;

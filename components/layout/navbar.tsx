@@ -23,6 +23,7 @@ const Navbar = ({}: NavbarProps) => {
   const params = useParams();
   const { data: session } = useSession();
   const shopUser = session?.user;
+  // console.log(shopUser);
   const routes = [
     {
       href: `/${params.shopId}`,
@@ -33,6 +34,11 @@ const Navbar = ({}: NavbarProps) => {
       href: `/${params.shopId}/categories`,
       label: 'Categories',
       active: pathname.includes(`/categories`),
+    },
+    {
+      href: `/${params.shopId}/products`,
+      label: 'Products',
+      active: pathname.includes(`/products`),
     },
     {
       href: `/${params.shopId}/settings`,

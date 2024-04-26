@@ -14,6 +14,7 @@ export default function RootLayoutClient({
   const isMounted = useMounted();
   // const { data: session } = useSession();
   // console.log(session);
+  // TODO: Make layout responsive
   return (
     <>
       <main className='container min-h-[100svh]'>{children}</main>

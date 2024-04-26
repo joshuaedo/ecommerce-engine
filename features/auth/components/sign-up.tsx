@@ -37,8 +37,8 @@ const SignUpForm = () => {
   });
 
   const {
-    signInWithGoogle,
-    isSigningInWithGoogle,
+    signUpWithGoogle,
+    isSigningUpWithGoogle,
     signUpWithEmailAndPassword,
     isSigningUpWithEmailAndPassword,
   } = useAuth();
@@ -134,10 +134,10 @@ const SignUpForm = () => {
                   Sign up
                 </Button>
                 <Button
-                  onClick={() => signInWithGoogle()}
+                  onClick={() => signUpWithGoogle()}
                   variant='outline'
                   className='w-full'
-                  isLoading={isSigningInWithGoogle}
+                  isLoading={isSigningUpWithGoogle}
                 >
                   Sign up with Google
                 </Button>

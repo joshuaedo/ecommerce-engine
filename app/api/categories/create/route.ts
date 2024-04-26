@@ -33,7 +33,7 @@ export async function PATCH(req: Request) {
       name,
       shopId,
       imageUrl,
-      userId,
+      creatorId: userId,
       slug,
     });
 

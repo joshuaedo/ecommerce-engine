@@ -11,7 +11,6 @@ import {
 } from '@/components/common/form';
 import { Header } from '@/components/common/header';
 import { Separator } from '@/components/common/separator';
-import { Category } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 import {
   CreateCategoryType,
@@ -22,39 +21,45 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import useCategory from '../hooks/use-category';
 import { Input } from '@/components/common/input';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import DeleteCategory from './delete-category';
 import { ImageUpload } from '@/components/common/image-upload';
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { generateSlugFromName } from '@/lib/utils';
+import { ExtendedCategory } from '../types/extensions';
 
 interface CategorySettingsFormProps {
-  initialCategoryData: Category | null;
+  initialCategoryData: ExtendedCategory | null;
+  userId: string | undefined;
+  shopId: string;
 }
 
 const CategorySettingsForm = ({
   initialCategoryData,
+  userId,
+  shopId,
 }: CategorySettingsFormProps) => {
   const router = useRouter();
-  const params = useParams();
-  const { data: session } = useSession();
-  const userId = session?.user?.id ?? '';
   const [slug, setSlug] = useState(
     initialCategoryData ? initialCategoryData.slug : ''
   );
   const form = useForm<UpdateCategoryType | CreateCategoryType>({
     resolver: zodResolver(UpdateCategoryValidator || CreateCategoryValidator),
-    defaultValues: initialCategoryData ?? {
-      name: '',
-      imageUrl: '',
-      shopId: Array.isArray(params.shopId)
-        ? params.shopId[0]
-        : params.shopId ?? '',
-      slug,
-      userId,
-    },
+    defaultValues: initialCategoryData
+      ? {
+          ...initialCategoryData,
+          imageUrl: initialCategoryData?.images[0]?.url ?? '',
+        }
+      : {
+          name: '',
+          imageUrl: '',
+          shopId,
+          slug,
+          creatorId: userId,
+        },
   });
+
+  // console.log(form.getValues());
 
   // update slug
   useEffect(() => {
@@ -176,6 +181,7 @@ const CategorySettingsForm = ({
                 router.back();
               }}
               size='thin'
+              type='button'
               variant='outline'
             >
               Cancel

@@ -10,58 +10,92 @@ const createNewCategory = async ({
   imageUrl,
   shopId,
   slug,
-  userId,
+  creatorId,
 }: CreateCategoryType) => {
   try {
     const category = await db.category.create({
       data: {
         name,
-        imageUrl,
         shopId,
         slug,
-        userId,
+        creatorId,
       },
     });
 
-    return category;
+    const image = await db.image.create({
+      data: {
+        url: imageUrl,
+        creatorId,
+        categoryId: category.id,
+      },
+    });
+
+    const updatedCategory = await db.category.update({
+      where: {
+        id: category.id,
+      },
+      data: {
+        images: {
+          connect: {
+            id: image.id,
+          },
+        },
+      },
+    });
+
+    return updatedCategory;
   } catch (error: any) {
-    throw new Error(`Failed to create new shop: ${error.message}`);
+    throw new Error(`Failed to create new category: ${error.message}`);
   }
 };
 
 const updateCategory = async (data: UpdateCategoryType) => {
   try {
-    const shop = await db.category.update({
+    const oldImage = await db.image.findFirst({
       where: {
-        id: data.id,
-        shopId: data.shopId,
-        userId: data.userId,
-      },
-      data: {
-        name: data?.name,
-        imageUrl: data?.imageUrl,
-        shopId: data?.shopId,
-        slug: data?.slug,
+        categoryId: data.id,
       },
     });
 
-    return shop;
+    const updatedCategory = await db.category.update({
+      where: {
+        id: data.id,
+        shopId: data.shopId,
+        creatorId: data.creatorId,
+      },
+      data: {
+        name: data?.name,
+        slug: data?.slug,
+        images: {
+          update: {
+            where: {
+              id: oldImage?.id,
+            },
+            data: {
+              url: data?.imageUrl,
+            },
+          },
+        },
+      },
+    });
+
+    return updatedCategory;
   } catch (error: any) {
-    throw new Error(`Failed to update shop: ${error.message}`);
+    throw new Error(`Failed to update category: ${error.message}`);
   }
 };
 
 const deleteCategory = async ({ id }: DeleteCategoryType) => {
   try {
-    const shop = await db.category.delete({
+    const category = await db.category.delete({
       where: {
         id,
       },
     });
 
-    return shop;
+    return category;
   } catch (error: any) {
-    throw new Error(`Failed to delete shop: ${error.message}`);
+    throw new Error(`Failed to delete category: ${error.message}`);
   }
 };
 
