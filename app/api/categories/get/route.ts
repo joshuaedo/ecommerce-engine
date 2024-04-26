@@ -18,7 +18,7 @@ export async function GET(req: Request) {
     const categorySlug = url.searchParams.get('categorySlug');
 
     if (!userId) {
-      return new Response('Unauthorized', { status: 401 });
+      return new Response('Unauthenticated', { status: 401 });
     }
 
     if (!shopId) {

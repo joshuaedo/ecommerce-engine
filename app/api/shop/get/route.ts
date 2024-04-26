@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     const shopSlug = url.searchParams.get('shopSlug');
 
     if (!userId) {
-      return new Response('Unauthorized', { status: 401 });
+      return new Response('Unauthenticated', { status: 401 });
     }
 
     if (shopId && !shopSlug) {
@@ -26,12 +26,12 @@ export async function GET(req: Request) {
 
     if (shopId && shopSlug) {
       const shop = await getShopById(shopId);
-      const stringifiedShop = JSON.stringify({
-        ...shop,
-        slug: shopSlug,
-      });
+      if (!shop) {
+        return new Response('Shop not found', { status: 404 });
+      }
+      shop.slug = shopSlug;
 
-      return new Response(stringifiedShop, { status: 200 });
+      return new Response(JSON.stringify(shop), { status: 200 });
     }
 
     const shops = await getShopsByCreatorId(userId);

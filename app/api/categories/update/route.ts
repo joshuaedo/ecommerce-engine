@@ -14,7 +14,7 @@ export async function PATCH(req: Request) {
     const userId = session?.user?.id;
 
     if (!userId) {
-      return new Response('Unauthorized', { status: 401 });
+      return new Response('Unauthenticated', { status: 401 });
     }
 
     const updatedCategory = await updateCategory(categoryUpdate);
