@@ -7,19 +7,19 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel,
 } from '@/components/common/dropdown-menu';
-import { CategoryColumn } from './category-columns';
+import { ProductColumn } from './product-columns';
 import { Button } from '@/components/common/button';
 import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react';
 import { copyToClipboard } from '@/lib/utils';
 import { useParams, useRouter } from 'next/navigation';
-import DeleteCategory from './delete-category';
+import DeleteProduct from './delete-product';
 import { useState } from 'react';
 
-interface CategoryCellActionProps {
-  data: CategoryColumn;
+interface ProductCellActionProps {
+  data: ProductColumn;
 }
 
-export const CategoryCellAction = ({ data }: CategoryCellActionProps) => {
+export const ProductCellAction = ({ data }: ProductCellActionProps) => {
   const router = useRouter();
   const params = useParams();
   const [isDeleting, setIsDeleting] = useState(false);
@@ -40,7 +40,7 @@ export const CategoryCellAction = ({ data }: CategoryCellActionProps) => {
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
-              router.push(`/shop/${params.shopId}/categories/${data.slug}`)
+              router.push(`/shop/${params.shopId}/products/${data.slug}`)
             }
           >
             <Edit className='mr-2 size-4' />
@@ -52,7 +52,7 @@ export const CategoryCellAction = ({ data }: CategoryCellActionProps) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteCategory
+      <DeleteProduct
         id={data.id}
         key={data.id}
         name={data.name}

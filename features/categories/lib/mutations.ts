@@ -51,7 +51,7 @@ const createNewCategory = async ({
 
 const updateCategory = async (data: UpdateCategoryType) => {
   try {
-    const oldImage = await db.image.findFirst({
+    const image = await db.image.findFirst({
       where: {
         categoryId: data.id,
       },
@@ -69,7 +69,7 @@ const updateCategory = async (data: UpdateCategoryType) => {
         images: {
           update: {
             where: {
-              id: oldImage?.id,
+              id: image?.id,
             },
             data: {
               url: data?.imageUrl,

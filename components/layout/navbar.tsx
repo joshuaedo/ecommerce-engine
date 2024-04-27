@@ -1,58 +1,86 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
-import { buttonVariants } from '../common/button';
-import { LogIn } from 'lucide-react';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../common/dropdown-menu';
+
 import UserAvatar from '../common/user-avatar';
 import { ShopSwitcher } from '@/features/shop/components/shop-switcher';
 import useShop from '@/features/shop/hooks/use-shop';
 import useShopUser from '@/features/user/hooks/use-shop-user';
+import { siteConfig } from '@/config/site';
+import { useEffect, useState } from 'react';
+import { buttonVariants } from '../common/button';
+import Image from 'next/image';
+import { Icons } from '../common/icons';
 
 interface NavbarProps {}
 
-const Navbar = ({}: NavbarProps) => {
-  const pathname = usePathname();
+const { title, website, github } = siteConfig;
+
+const HomeNavItems = () => {
+  return (
+    <div className='ml-auto flex gap-4'>
+      <Link href={website} target='_blank' rel='noreferrer'>
+        <div
+          className={buttonVariants(false)({
+            size: 'icon',
+            variant: 'ghost',
+          })}
+        >
+          <Image
+            src='https://joshuaedo.sirv.com/joshuaedo/public/images/original/me-modified.png'
+            alt="Joshua Edo's Logo"
+            width={100}
+            height={100}
+            className='size-5 fill-current'
+          />
+          <span className='sr-only'>Joshua Edo&apos;s Portfolio</span>
+        </div>
+      </Link>
+      <Link
+        target='_blank'
+        rel='noreferrer'
+        href={github}
+        className={buttonVariants(false)({ variant: 'ghost', size: 'icon' })}
+      >
+        <Icons.gitHub className='size-5' />
+      </Link>
+    </div>
+  );
+};
+
+const ShopNavItems = ({ pathname }: { pathname: string }) => {
   const params = useParams();
-  const { user: shopUser } = useShopUser();
-  // console.log(shopUser);
   const { shops } = useShop();
   const routes = [
     {
-      href: `/${params.shopId}`,
+      href: `/shop/${params.shopId}`,
       label: 'Dashboard',
-      active: pathname === `/${params.shopId}`,
+      active: pathname === `/shop/${params.shopId}`,
     },
     {
-      href: `/${params.shopId}/categories`,
+      href: `/shop/${params.shopId}/categories`,
       label: 'Categories',
       active: pathname.includes(`/categories`),
     },
     {
-      href: `/${params.shopId}/products`,
+      href: `/shop/${params.shopId}/products`,
       label: 'Products',
       active: pathname.includes(`/products`),
     },
     {
-      href: `/${params.shopId}/settings`,
+      href: `/shop/${params.shopId}/settings`,
       label: 'Settings',
       active: pathname.includes(`/settings`),
     },
   ];
-
   return (
-    <nav className='border-b'>
-      <div className='flex h-16 items-center gap-3'>
+    shops &&
+    shops.length > 0 && (
+      <>
         <ShopSwitcher items={shops} />
-        <div className={cn('flex items-center gap-3')}>
+        <div className={cn('flex items-center gap-4')}>
           {routes.map((route) => (
             <Link
               href={route.href}
@@ -66,49 +94,36 @@ const Navbar = ({}: NavbarProps) => {
             </Link>
           ))}
         </div>
-        <div className='ml-auto flex items-center space-x-4'>
-          {shopUser ? (
-            <div
-              className={buttonVariants(false)({
-                size: 'icon',
-                variant: 'ghost',
-              })}
-            >
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <UserAvatar
-                    className='h-5 w-5'
-                    user={{
-                      name: shopUser?.name || null,
-                      image: shopUser?.image || null,
-                    }}
-                  />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem
-                    onSelect={() => {
-                      signOut();
-                    }}
-                    className='cursor-pointer'
-                  >
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
-          ) : (
-            <Link href='/sign-in'>
-              <div
-                className={buttonVariants(false)({
-                  size: 'icon',
-                  variant: 'ghost',
-                })}
-              >
-                <LogIn className='h-4 w-4 lg:h-5 lg:w-5' />
-                <span className='sr-only'>Sign In</span>
-              </div>
-            </Link>
-          )}
+      </>
+    )
+  );
+};
+
+const Navbar = ({}: NavbarProps) => {
+  const { user: shopUser } = useShopUser();
+  const pathname = usePathname();
+  const isShopPage = pathname.includes('/shop/');
+  const [navItems, setNavItems] = useState(<></>);
+
+  useEffect(() => {
+    if (isShopPage) {
+      setNavItems(<ShopNavItems pathname={pathname} />);
+    } else {
+      setNavItems(<HomeNavItems />);
+    }
+  }, [pathname, isShopPage]);
+
+  return (
+    <nav className='border-b py-3 px-6'>
+      <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 w-full'>
+          <div className='text-base tracking-tight'>
+            <Link href='/'>{title}</Link>
+          </div>
+          {navItems}
+        </div>
+        <div className='ml-auto'>
+          <UserAvatar user={shopUser} className='size-5 lg:size-6' />
         </div>
       </div>
     </nav>

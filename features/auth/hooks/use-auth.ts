@@ -21,16 +21,7 @@ const useAuth = () => {
     mutate: signUpWithEmailAndPassword,
     isPending: isSigningUpWithEmailAndPassword,
   } = useMutation({
-    mutationFn: async ({
-      name,
-      email,
-      password,
-    }: SignUpWithEmailAndPasswordType) => {
-      const payload: SignUpWithEmailAndPasswordType = {
-        name,
-        email,
-        password,
-      };
+    mutationFn: async (payload: SignUpWithEmailAndPasswordType) => {
       const { data } = await axios.patch(`/api/user/create`, payload);
       return data;
     },

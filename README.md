@@ -51,6 +51,22 @@ Some custom React hooks and utilities to enhance functionality and development e
 - [Prettier](https://prettier.io/) – Opinionated code formatter for consistent code style
 - [ESLint](https://eslint.org/) – Pluggable linter for Next.js and TypeScript
 
+### To do
+
+&#9745; Add products feature
+
+ &#9744; Build home page
+
+ &#9744; Implement multiple image upload in products feature
+
+ &#9744; Make general image cleaner utility function
+
+ &#9744; Add logo, favicon and metadata
+
+ &#9744; Make layout responsive
+
+ &#9744; Add forgot password feature
+
 ### Prerequisites
 
 Before you begin, ensure you have the following software installed:

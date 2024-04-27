@@ -14,7 +14,11 @@ const SettingsPage = async ({ params }: SettingsPageProps) => {
     return null;
   }
 
-  return <ShopSettingsForm initialShopData={shop} />;
+  return (
+    <div className='max-w-[750px] mx-auto py-3 space-y-4'>
+      <ShopSettingsForm initialShopData={shop} />
+    </div>
+  );
 };
 
 export default SettingsPage;

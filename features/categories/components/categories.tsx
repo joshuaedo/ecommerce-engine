@@ -8,15 +8,21 @@ import { Plus } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { CategoryColumn, categoryColumns } from './category-columns';
 import { DataTable } from '@/components/common/data-table';
+import { Card, CardContent } from '@/components/common/card';
 
 interface CategoriesProps {
   categories: CategoryColumn[];
 }
 
-const Categories = ({ categories }: CategoriesProps) => {
+const CategoriesLayout = ({
+  categoryCount,
+  children,
+}: {
+  categoryCount: number;
+  children: React.ReactNode;
+}) => {
   const router = useRouter();
   const params = useParams();
-  const categoryCount = categories?.length;
 
   return (
     <>
@@ -28,13 +34,13 @@ const Categories = ({ categories }: CategoriesProps) => {
 
         <Button
           size='icon'
-          onClick={() => router.push(`/${params.shopId}/categories/new`)}
+          onClick={() => router.push(`/shop/${params.shopId}/categories/new`)}
         >
           <Plus className='mr-4 size-4' />
         </Button>
       </div>
       <Separator />
-      <DataTable searchKey='name' columns={categoryColumns} data={categories} />
+      {children}
       <Separator />
       <Header title='API' description={`API calls for categories`} />
       <ApiList entityName='categories' entitySlugName='categorySlug' />
@@ -42,23 +48,25 @@ const Categories = ({ categories }: CategoriesProps) => {
   );
 };
 
-const EmptyCategories = () => {
-  const router = useRouter();
-  const params = useParams();
-
+const Categories = ({ categories }: CategoriesProps) => {
+  const categoryCount = categories ? categories.length : 0;
   return (
-    <>
-      <div className='w-full flex items-center justify-between'>
-        <Header title={`Categories (0)`} description='Manage categories' />
+    <CategoriesLayout categoryCount={categoryCount}>
+      <DataTable searchKey='name' columns={categoryColumns} data={categories} />
+    </CategoriesLayout>
+  );
+};
 
-        <Button
-          size='icon'
-          onClick={() => router.push(`/${params.shopId}/categories/new`)}
-        >
-          <Plus className='mr-4 size-4' />
-        </Button>
-      </div>
-    </>
+const EmptyCategories = () => {
+  const categoryCount = 0;
+  return (
+    <CategoriesLayout categoryCount={categoryCount}>
+      <Card>
+        <CardContent>
+          <p className='text-center'>No Categories</p>
+        </CardContent>
+      </Card>
+    </CategoriesLayout>
   );
 };
 

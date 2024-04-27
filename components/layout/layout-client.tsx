@@ -4,7 +4,7 @@ import React from 'react';
 import useMounted from '@/hooks/use-mounted';
 import CreateShop from '../../features/shop/components/create-shop';
 import { Toaster } from './toaster';
-// import { useSession } from 'next-auth/react';
+import Navbar from './navbar';
 
 export default function RootLayoutClient({
   children,
@@ -12,12 +12,14 @@ export default function RootLayoutClient({
   children: React.ReactNode;
 }>) {
   const isMounted = useMounted();
-  // const { data: session } = useSession();
-  // console.log(session);
   // TODO: Make layout responsive
   return (
     <>
-      <main className='container min-h-[100svh]'>{children}</main>
+      <Navbar />
+
+      <main className='container min-h-[100svh] flex flex-col'>
+        <div className='flex-1 space-y-4 py-4'>{children}</div>
+      </main>
 
       {isMounted && <CreateShop />}
 

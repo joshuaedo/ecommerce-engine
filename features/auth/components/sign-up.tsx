@@ -45,7 +45,7 @@ const SignUpForm = () => {
 
   return (
     <div
-      style={{ height: '100svh' }}
+      style={{ height: '75svh' }}
       className='flex items-center justify-center'
     >
       <Card className=''>

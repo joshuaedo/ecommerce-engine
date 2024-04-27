@@ -85,37 +85,37 @@ model Category {
 }
 
 model Product {
-  id          String   @id @default(cuid())
-  name        String
-  slug        String
-  images      Image[]  @relation("ProductToImage")
-  price       Decimal
-  description String
-  categoryId  String
-  category    Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  creatorId   String
-  creator     User     @relation("UserToProduct", fields: [creatorId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  isFeatured  Boolean  @default(false)
-  isArchived  Boolean  @default(false)
-  shopId      String
-  shop        Shop     @relation("ShopToProduct", fields: [shopId], references: [id])
+  id           String   @id @default(cuid())
+  name         String
+  slug         String
+  images       Image[]  @relation("ProductToImage")
+  price        Decimal
+  description  String
+  categorySlug String
+  category     Category @relation("CategoryToProduct", fields: [categorySlug], references: [slug])
+  creatorId    String
+  creator      User     @relation("UserToProduct", fields: [creatorId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  isFeatured   Boolean  @default(false)
+  isArchived   Boolean  @default(false)
+  shopId       String
+  shop         Shop     @relation("ShopToProduct", fields: [shopId], references: [id])
 
-  @@unique([slug])
+  @@unique([slug, categorySlug])
 }
 
 model Image {
-  id         String   @id @default(cuid())
-  url        String
-  productId  String?
-  product    Product? @relation("ProductToImage", fields: [productId], references: [id], onDelete: Cascade)
-  categoryId String
-  category   Category @relation("CategoryToImage", fields: [categoryId], references: [id], onDelete: Cascade)
-  creatorId  String
-  creator    User     @relation("UserToImage", fields: [creatorId], references: [id], onDelete: Cascade)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           String   @id @default(cuid())
+  url          String
+  productId    String?
+  product      Product? @relation("ProductToImage", fields: [productId], references: [id], onDelete: Cascade)
+  categorySlug String
+  category     Category @relation("CategoryToImage", fields: [categorySlug], references: [slug], onDelete: Cascade)
+  creatorId    String
+  creator      User     @relation("UserToImage", fields: [creatorId], references: [id], onDelete: Cascade)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@unique([url])
 }

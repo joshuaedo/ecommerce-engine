@@ -133,7 +133,7 @@ const CategorySettingsForm = ({
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category Name</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -151,7 +151,7 @@ const CategorySettingsForm = ({
               name='slug'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Category Slug</FormLabel>
+                  <FormLabel>Slug</FormLabel>
                   <FormControl>
                     <Input
                       {...field}

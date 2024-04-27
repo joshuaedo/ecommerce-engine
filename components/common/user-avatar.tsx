@@ -2,10 +2,19 @@
 
 import React, { FC } from 'react';
 import { AvatarProps } from '@radix-ui/react-avatar';
-
-import { Avatar, AvatarFallback, AvatarImage } from './avatar';
+import { buttonVariants } from './button';
+import { LogIn } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from './dropdown-menu';
+import { signOut } from 'next-auth/react';
+import { Avatar, AvatarFallback } from './avatar';
 import { Icons } from './icons';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface UserAvatarProps extends AvatarProps {
   user:
@@ -18,29 +27,62 @@ interface UserAvatarProps extends AvatarProps {
 }
 
 const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
+  const size = 'size-5 lg:size-6';
   return (
-    <Avatar {...props}>
-      {user?.image ? (
-        // <AvatarImage
-        //   src={user.image}
-        //   alt='profile picture'
-        //   referrerPolicy='no-referrer'
-        // />
-        // TODO: make general image cleaner utility function
-        <Image
-          src={user.image?.replace('=s96-c', '')}
-          alt={user?.name ?? 'profile picture'}
-          width={96}
-          height={96}
-          className='size-5'
-        />
+    <div className='flex items-center space-x-4'>
+      {user ? (
+        <div
+          className={buttonVariants(false)({
+            size: 'icon',
+            variant: 'ghost',
+          })}
+        >
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar {...props}>
+                {user?.image ? (
+                  // TODO: make general image cleaner utility function
+                  <Image
+                    src={user.image?.replace('=s96-c', '')}
+                    alt={user?.name ?? 'profile picture'}
+                    width={96}
+                    height={96}
+                    className='object-cover'
+                  />
+                ) : (
+                  <AvatarFallback>
+                    <span className='sr-only'>{user?.name}</span>
+                    <Icons.user className={size} />
+                  </AvatarFallback>
+                )}
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem
+                onSelect={() => {
+                  signOut();
+                }}
+                className='cursor-pointer'
+              >
+                Sign Out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       ) : (
-        <AvatarFallback>
-          <span className='sr-only'>{user?.name}</span>
-          <Icons.user className='h-4 w-4 lg:h-5 lg:w-5' />
-        </AvatarFallback>
+        <Link href='/sign-in'>
+          <div
+            className={buttonVariants(false)({
+              size: 'icon',
+              variant: 'ghost',
+            })}
+          >
+            <LogIn className={size} />
+            <span className='sr-only'>Sign In</span>
+          </div>
+        </Link>
       )}
-    </Avatar>
+    </div>
   );
 };
 

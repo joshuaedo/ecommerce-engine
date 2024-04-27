@@ -18,7 +18,7 @@ const CategoryPage = async ({
   const categoryObject = Array.isArray(category) ? category[0] : category;
 
   return (
-    <div>
+    <div className='max-w-[750px] mx-auto py-3'>
       <CategorySettingsForm
         initialCategoryData={categoryObject}
         shopId={shopId}

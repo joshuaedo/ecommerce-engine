@@ -23,15 +23,15 @@ export async function GET(req: Request) {
       return new Response('Missing shopId', { status: 400 });
     }
 
-    if (!categorySlug) {
-      const categories = await getCategoriesByShopId(shopId);
+    if (categorySlug) {
+      const category = await getCategoryByShopIdAndSlug(shopId, categorySlug);
 
-      return new Response(JSON.stringify(categories), { status: 200 });
+      return new Response(JSON.stringify(category), { status: 200 });
     }
 
-    const category = await getCategoryByShopIdAndSlug(shopId, categorySlug);
+    const categories = await getCategoriesByShopId(shopId);
 
-    return new Response(JSON.stringify(category), { status: 200 });
+    return new Response(JSON.stringify(categories), { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, {

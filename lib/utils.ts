@@ -6,7 +6,8 @@ const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
 
-const copyToClipboard = (text: string) => {
+const copyToClipboard = (text: string | undefined) => {
+  if (!text) return;
   navigator.clipboard.writeText(text);
   toast({
     description: 'Copied to clipboard',

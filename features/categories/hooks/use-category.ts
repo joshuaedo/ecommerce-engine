@@ -20,8 +20,8 @@ const useCategory = () => {
 
   const goToCategoriesPage = () => {
     // router.refresh();
-    // router.push(`/${params.shopId}/categories`);
-    window.location.assign(`/${params.shopId}/categories`);
+    // router.push(`/shop/${params.shopId}/categories`);
+    window.location.assign(`/shop/${params.shopId}/categories`);
   };
 
   // create Category
@@ -30,20 +30,7 @@ const useCategory = () => {
     isPending: isCreatingCategory,
     data: createdCategory,
   } = useMutation({
-    mutationFn: async ({
-      name,
-      imageUrl,
-      shopId,
-      slug,
-      creatorId,
-    }: CreateCategoryType) => {
-      const payload: CreateCategoryType = {
-        name,
-        imageUrl,
-        shopId,
-        slug,
-        creatorId,
-      };
+    mutationFn: async (payload: CreateCategoryType) => {
       const { data } = await axios.patch(`/api/categories/create`, payload);
       return data as Category;
     },
@@ -69,7 +56,7 @@ const useCategory = () => {
     },
   });
 
-  // get Categorys
+  // get Categories
   const {
     data: categories,
     isFetched: isGottenCategories,
