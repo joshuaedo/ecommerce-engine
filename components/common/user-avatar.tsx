@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback } from './avatar';
 import { Icons } from './icons';
 import Image from 'next/image';
 import Link from 'next/link';
+import { cleanImageUrl } from '@/lib/utils';
 
 interface UserAvatarProps extends AvatarProps {
   user:
@@ -28,6 +29,8 @@ interface UserAvatarProps extends AvatarProps {
 
 const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
   const size = 'size-5 lg:size-6';
+  const image = user?.image;
+
   return (
     <div className='flex items-center space-x-4'>
       {user ? (
@@ -40,10 +43,9 @@ const UserAvatar: FC<UserAvatarProps> = ({ user, ...props }) => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar {...props}>
-                {user?.image ? (
-                  // TODO: make general image cleaner utility function
+                {image ? (
                   <Image
-                    src={user.image?.replace('=s96-c', '')}
+                    src={cleanImageUrl(image)}
                     alt={user?.name ?? 'profile picture'}
                     width={96}
                     height={96}

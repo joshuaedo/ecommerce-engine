@@ -65,7 +65,7 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9744; Implement multiple image upload in products feature
 
- &#9744; Make general image cleaner utility function
+ &#9745; Make general image cleaner utility function
 
  &#9744; Add logo, favicon and metadata
 

@@ -38,4 +38,18 @@ const formatPrice = (price: Decimal | number | undefined) => {
   return formatter.format(price.toNumber());
 };
 
-export { cn, copyToClipboard, generateSlugFromName, formatPrice };
+const cleanImageUrl = (url: string | undefined) => {
+  if (!url) {
+    return '';
+  }
+  const pattern = /=[s]\d+(-c)?$/;
+  return url.replace(pattern, '');
+};
+
+export {
+  cn,
+  copyToClipboard,
+  generateSlugFromName,
+  formatPrice,
+  cleanImageUrl,
+};
