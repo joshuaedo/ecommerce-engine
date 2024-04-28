@@ -108,7 +108,7 @@ Follow these steps to set up and run admin locally.
 
 ## License
 
-This project is licensed under the MIT [License](https://github.com/joshuaedo/admin/blob/main/LICENSE.md) 
+This project is licensed under the MIT [License](https://github.com/joshuaedo/admin/blob/main/LICENSE) 
 
 ## Author
 
