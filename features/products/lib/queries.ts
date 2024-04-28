@@ -20,7 +20,6 @@ const getProduct = async ({
     images: true,
     category: true,
     creator: true,
-    isArchived: false,
   };
 
   if (id) {
@@ -49,7 +48,7 @@ const getProduct = async ({
   }
   if (categorySlug) {
     product = await db.product.findMany({
-      where: { categorySlug },
+      where: { categorySlug, isArchived: false || undefined },
       orderBy: {
         createdAt: 'desc',
       },
@@ -58,7 +57,7 @@ const getProduct = async ({
   }
   if (shopId && categorySlug) {
     product = await db.product.findMany({
-      where: { shopId, categorySlug },
+      where: { shopId, categorySlug, isArchived: false || undefined },
       orderBy: {
         createdAt: 'desc',
       },
@@ -66,7 +65,7 @@ const getProduct = async ({
     });
   } else if (shopId) {
     product = await db.product.findMany({
-      where: { shopId },
+      where: { shopId, isArchived: false || undefined },
       orderBy: {
         createdAt: 'desc',
       },

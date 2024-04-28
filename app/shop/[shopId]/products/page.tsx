@@ -5,7 +5,7 @@ import {
 import { ProductColumn } from '@/features/products/components/product-columns';
 import { getProductsByShopId } from '@/features/products/lib/queries';
 import { format } from 'date-fns';
-import { formatProductPrice } from '@/features/products/lib/utils';
+import { formatPrice } from '@/lib/utils';
 
 interface ProductsPageProps {
   params: {
@@ -26,7 +26,7 @@ const ProductsPage = async ({ params }: ProductsPageProps) => {
     slug: product?.slug,
     isFeatured: product?.isFeatured,
     isArchived: product?.isArchived,
-    price: formatProductPrice(product?.price),
+    price: formatPrice(product?.price),
     category: product?.category.name,
     createdAt: format(product?.createdAt, 'MMMM do, yyyy'),
   }));

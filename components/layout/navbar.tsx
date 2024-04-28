@@ -70,6 +70,11 @@ const ShopNavItems = ({ pathname }: { pathname: string }) => {
       active: pathname.includes(`/products`),
     },
     {
+      href: `/shop/${params.shopId}/orders`,
+      label: 'Orders',
+      active: pathname.includes(`/orders`),
+    },
+    {
       href: `/shop/${params.shopId}/settings`,
       label: 'Settings',
       active: pathname.includes(`/settings`),

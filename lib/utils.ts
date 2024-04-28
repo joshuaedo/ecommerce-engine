@@ -1,6 +1,7 @@
 import { toast } from '@/hooks/use-toast';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { Decimal } from '@prisma/client/runtime/library';
 
 const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
@@ -24,4 +25,17 @@ const generateSlugFromName = (name: string | undefined) => {
     .replace(/^-+|-+$/g, '');
 };
 
-export { cn, copyToClipboard, generateSlugFromName };
+const formatPrice = (price: Decimal | number | undefined) => {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  if (!price) return formatter.format(0);
+
+  if (typeof price === 'number') return formatter.format(price);
+
+  return formatter.format(price.toNumber());
+};
+
+export { cn, copyToClipboard, generateSlugFromName, formatPrice };

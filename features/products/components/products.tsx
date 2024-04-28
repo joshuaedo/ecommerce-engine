@@ -28,7 +28,7 @@ const ProductsLayout = ({
     <>
       <div className='w-full flex items-center justify-between'>
         <Header
-          title={`Products ${productCount}`}
+          title={`Products (${productCount})`}
           description='Manage products'
         />
         <Button

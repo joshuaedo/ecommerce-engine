@@ -37,7 +37,7 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
       <div className='flex items-center justify-between'>
         <Header
           title='Shop Settings'
-          description='Manage your shop preferences'
+          description='Manage your shop settings'
         />
         <DeleteShop id={initialShopData.id} name={initialShopData.name} />
       </div>

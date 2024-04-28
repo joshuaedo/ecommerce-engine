@@ -65,6 +65,7 @@ model Shop {
   updatedAt   DateTime   @updatedAt
   categories  Category[] @relation("ShopToCategory")
   products    Product[]  @relation("ShopToProduct")
+  orders      Order[]    @relation("ShopToOrder")
 
   @@unique([slug])
 }
@@ -86,22 +87,23 @@ model Category {
 }
 
 model Product {
-  id           String   @id @default(cuid())
+  id           String      @id @default(cuid())
   name         String
   slug         String
-  images       Image[]  @relation("ProductToImage")
+  images       Image[]     @relation("ProductToImage")
   price        Decimal
   description  String
   categorySlug String
-  category     Category @relation("CategoryToProduct", fields: [categorySlug], references: [slug])
+  category     Category    @relation("CategoryToProduct", fields: [categorySlug], references: [slug])
   creatorId    String
-  creator      User     @relation("UserToProduct", fields: [creatorId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  isFeatured   Boolean  @default(false)
-  isArchived   Boolean  @default(false)
+  creator      User        @relation("UserToProduct", fields: [creatorId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  isFeatured   Boolean     @default(false)
+  isArchived   Boolean     @default(false)
   shopId       String
-  shop         Shop     @relation("ShopToProduct", fields: [shopId], references: [id])
+  shop         Shop        @relation("ShopToProduct", fields: [shopId], references: [id])
+  orderItems   OrderItem[] @relation("ProductToOrderItem")
 
   @@unique([slug, categorySlug])
 }
@@ -119,4 +121,24 @@ model Image {
   updatedAt    DateTime @updatedAt
 
   @@unique([url])
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  shopId     String
+  shop       Shop        @relation("ShopToOrder", fields: [shopId], references: [id])
+  orderItems OrderItem[] @relation("OrderToOrderItem")
+  isPaid     Boolean     @default(false)
+  phone      String
+  address    String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation("OrderToOrderItem", fields: [orderId], references: [id])
+  productId String
+  product   Product @relation("ProductToOrderItem", fields: [productId], references: [id])
 }
