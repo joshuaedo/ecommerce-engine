@@ -23,9 +23,10 @@ const useShop = (id?: string) => {
     isPending: isCreatingShop,
     data: createdShop,
   } = useMutation({
-    mutationFn: async ({ name }: CreateShopType) => {
+    mutationFn: async ({ name, description }: CreateShopType) => {
       const payload: CreateShopType = {
         name,
+        description,
         creatorId: userId,
       };
       const { data } = await axios.patch(`/api/shop/create`, payload);
@@ -48,7 +49,7 @@ const useShop = (id?: string) => {
         toast({
           description: 'Shop created successfully',
         });
-        window.location.assign(`/${createdShop?.id}`);
+        window.location.assign(`/shop/${createdShop?.id}`);
       });
     },
   });
@@ -95,7 +96,7 @@ const useShop = (id?: string) => {
         toast({
           description: 'Shop updated successfully',
         });
-        window.location.assign(`/${id}`);
+        window.location.assign(`/shop/${id}`);
       });
     },
   });

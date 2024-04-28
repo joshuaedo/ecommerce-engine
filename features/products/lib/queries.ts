@@ -20,6 +20,7 @@ const getProduct = async ({
     images: true,
     category: true,
     creator: true,
+    isArchived: false,
   };
 
   if (id) {

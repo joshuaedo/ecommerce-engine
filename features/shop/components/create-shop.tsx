@@ -16,6 +16,8 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
+  FormMessage,
 } from '@/components/common/form';
 import { Button } from '@/components/common/button';
 import useAutoFocus from '@/hooks/use-auto-focus';
@@ -32,6 +34,7 @@ const CreateShop = ({}: CreateShopProps) => {
     resolver: zodResolver(CreateShopValidator),
     defaultValues: {
       name: '',
+      description: '',
       creatorId: '',
     },
   });
@@ -57,16 +60,35 @@ const CreateShop = ({}: CreateShopProps) => {
                   name='name'
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className='border border-transparent shadow-md placeholder:text-background dark:border-[#333333] '
+                          className='placeholder:text-background'
                           placeholder="What's the name of your shop?"
-                          autoFocus
                           disabled={isCreatingShop}
                           ref={inputRef}
                         />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name='description'
+                  render={({ field }) => (
+                    <FormItem>
+                    <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          className='placeholder:text-background'
+                          placeholder="What's your shop about?"
+                          disabled={isCreatingShop}
+                        />
+                      </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />

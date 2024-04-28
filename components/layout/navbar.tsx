@@ -16,12 +16,12 @@ import { Icons } from '../common/icons';
 
 interface NavbarProps {}
 
-const { title, website, github } = siteConfig;
+const { title, creator, github, siteName } = siteConfig;
 
 const HomeNavItems = () => {
   return (
     <div className='ml-auto flex gap-4'>
-      <Link href={website} target='_blank' rel='noreferrer'>
+      <Link href={creator.website} target='_blank' rel='noreferrer'>
         <div
           className={buttonVariants(false)({
             size: 'icon',
@@ -30,7 +30,7 @@ const HomeNavItems = () => {
         >
           <Image
             src='https://joshuaedo.sirv.com/joshuaedo/public/images/original/me-modified.png'
-            alt="Joshua Edo's Logo"
+            alt={`${creator.name}'s Logo`}
             width={100}
             height={100}
             className='size-5 fill-current'
@@ -114,11 +114,16 @@ const Navbar = ({}: NavbarProps) => {
   }, [pathname, isShopPage]);
 
   return (
-    <nav className='border-b py-3 px-6'>
+    <nav className='border-b py-3 px-7'>
       <div className='flex items-center gap-4'>
         <div className='flex items-center gap-4 w-full'>
-          <div className='text-base tracking-tight'>
-            <Link href='/'>{title}</Link>
+          <div className='font-semibold text-base tracking-tight'>
+            <Link href='/' className='hidden lg:flex'>
+              {title}
+            </Link>
+            <Link href='/' className='flex lg:hidden'>
+              {siteName}
+            </Link>
           </div>
           {navItems}
         </div>

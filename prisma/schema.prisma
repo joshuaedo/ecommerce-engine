@@ -55,15 +55,16 @@ model User {
 }
 
 model Shop {
-  id         String     @id @default(uuid())
-  name       String
-  slug       String?
-  creatorId  String
-  creator    User       @relation("UserToShop", fields: [creatorId], references: [id])
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  categories Category[] @relation("ShopToCategory")
-  products   Product[]  @relation("ShopToProduct")
+  id          String     @id @default(uuid())
+  name        String
+  description String
+  slug        String?
+  creatorId   String
+  creator     User       @relation("UserToShop", fields: [creatorId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  categories  Category[] @relation("ShopToCategory")
+  products    Product[]  @relation("ShopToProduct")
 
   @@unique([slug])
 }

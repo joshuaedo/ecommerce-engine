@@ -7,7 +7,7 @@ export async function PATCH(req: Request) {
   try {
     const body = await req.json();
 
-    const { name, creatorId } = CreateShopValidator.parse(body);
+    const { name, creatorId, description } = CreateShopValidator.parse(body);
 
     const userId = await getLoggedInUserId();
 
@@ -22,6 +22,7 @@ export async function PATCH(req: Request) {
     const newShop = await createNewShop({
       name,
       creatorId,
+      description,
     });
 
     return new Response(JSON.stringify(newShop), { status: 200 });

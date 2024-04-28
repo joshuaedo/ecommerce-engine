@@ -25,6 +25,7 @@ const updateShop = async (data: UpdateShopType) => {
       },
       data: {
         name: data?.name,
+        description: data?.description,
       },
     });
 

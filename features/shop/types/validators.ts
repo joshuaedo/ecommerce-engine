@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 const CreateShopValidator = z.object({
   name: z.string().min(3).max(100),
+  description: z.string(),
   creatorId: z.string(),
 });
 
@@ -12,6 +13,7 @@ const GetShopsValidator = z.object({
 const UpdateShopValidator = z.object({
   id: z.string(),
   name: z.string().min(3).max(100),
+  description: z.string(),
 });
 
 const DeleteShopValidator = z.object({

@@ -53,13 +53,31 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Shop Name</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       className='placeholder:text-background'
                       placeholder='Enter your shop name'
-                      autoFocus
+                      disabled={isUpdatingShop}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name='description'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      className='placeholder:text-background'
+                      placeholder="What's your shop about?"
+                      disabled={isUpdatingShop}
                     />
                   </FormControl>
                   <FormMessage />

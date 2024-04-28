@@ -1,4 +1,4 @@
-# Admin Project
+# Admin - Headless content management
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Admin, a fully functional CMS (Content Management System), is built using Next.js. This independent application serves as an administrative interface that allows users to manage data and settings for their websites effortlessly.
+Admin (HCM), is an independent application serves as an administrative interface that allows users to manage data and settings for their websites.
 
 ### Frameworks
 
@@ -57,6 +57,8 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9744; Build home page
 
+ &#9745; Add description to shop model
+
  &#9744; Implement multiple image upload in products feature
 
  &#9744; Make general image cleaner utility function
@@ -76,7 +78,7 @@ Before you begin, ensure you have the following software installed:
 
 ### Usage
 
-Follow these steps to set up and run stanq locally.
+Follow these steps to set up and run admin locally.
 
 1. Create a new project:
 
