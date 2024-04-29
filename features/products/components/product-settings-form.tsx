@@ -319,7 +319,7 @@ const ProductSettingsForm = ({
           </div>
         </form>
       </Form>
-      <Separator />
+      {/* <Separator /> */}
     </div>
   );
 };

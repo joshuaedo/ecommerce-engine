@@ -69,7 +69,9 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9744; Add logo, favicon and metadata
 
- &#9744; Make layout responsive
+ &#9745; Make layout responsive
+
+ &#9744; Deploy and test on mobile
 
  &#9744; Add forgot password feature
 

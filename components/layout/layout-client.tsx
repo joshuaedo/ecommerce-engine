@@ -13,7 +13,6 @@ export default function RootLayoutClient({
   children: React.ReactNode;
 }>) {
   const isMounted = useMounted();
-  // TODO: Make layout responsive
   return (
     <>
       <Navbar />

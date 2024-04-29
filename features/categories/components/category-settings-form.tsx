@@ -189,7 +189,7 @@ const CategorySettingsForm = ({
           </div>
         </form>
       </Form>
-      <Separator />
+      {/* <Separator /> */}
     </div>
   );
 };

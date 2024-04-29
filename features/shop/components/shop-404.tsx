@@ -12,13 +12,14 @@ export const Shop404 = ({}: Shop404Props) => {
 
   return (
     <div
-      style={{ height: '75svh' }}
+      style={{ height: '100svh' }}
       className='flex items-center justify-center'
     >
-      <div className='flex flex-col items-center gap-4'>
-        <p className='text-xl'> Shop not found</p>
-        <div className='flex gap-4'>
+      <div className='flex flex-col items-center gap-2 lg:gap-4'>
+        <p className='text-lg lg:text-xl'> Shop not found</p>
+        <div className='flex gap-2 lg:gap-4'>
           <Button
+            className='text-xs md:text-sm'
             onClick={() => {
               shopModal.onOpen();
             }}
@@ -26,6 +27,7 @@ export const Shop404 = ({}: Shop404Props) => {
             Create New Shop
           </Button>
           <Button
+            className='text-xs md:text-sm'
             variant='outline'
             onClick={() => {
               router.push('/');

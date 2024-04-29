@@ -30,24 +30,31 @@ const ApiAlert = ({
   description,
   variant = 'public',
 }: ApiAlertProps) => {
+  const CopyButton = () => (
+    <Button
+      variant='outline'
+      className='px-1'
+      size='icon'
+      onClick={() => copyToClipboard(description)}
+    >
+      <Copy className='size-3 lg:size-4' />
+    </Button>
+  );
+
   return (
-    <Alert>
-      <Server className='size-4' />
-      <AlertTitle className='flex items-center gap-x-2'>
-        {title}
-        <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
+    <Alert className='space-y-4 pb-6 px-2 lg:px-4'>
+      <AlertTitle className='flex items-center justify-between'>
+        <div className='flex items-center gap-x-2'>
+          <Server className='size-4' />
+          {title}
+          <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
+        </div>
+        <CopyButton />
       </AlertTitle>
-      <AlertDescription className='mt-4 flex items-center justify-between  gap-x-4'>
+      <AlertDescription className='flex items-center'>
         <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font font-semibold'>
           {description}
         </code>
-        <Button
-          variant='outline'
-          size='icon'
-          onClick={() => copyToClipboard(description)}
-        >
-          <Copy className='size-4' />
-        </Button>
       </AlertDescription>
     </Alert>
   );
