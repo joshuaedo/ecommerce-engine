@@ -9,7 +9,7 @@ import { z } from 'zod';
 
 export async function GET(req: Request) {
   try {
-    const userId = await getLoggedInUserId();
+    // const userId = await getLoggedInUserId();
 
     const url = new URL(req.url);
 
@@ -19,9 +19,9 @@ export async function GET(req: Request) {
 
     const categorySlug = url.searchParams.get('categorySlug');
 
-    if (!userId) {
-      return new Response('Unauthenticated', { status: 401 });
-    }
+    // if (!userId) {
+    //   return new Response('Unauthenticated', { status: 401 });
+    // }
 
     if (!shopId) {
       return new Response('Missing shopId', { status: 400 });
@@ -34,7 +34,10 @@ export async function GET(req: Request) {
     }
 
     if (categorySlug && !productSlug) {
-      const products = await getProductsByShopIdAndCategorySlug(shopId, categorySlug);
+      const products = await getProductsByShopIdAndCategorySlug(
+        shopId,
+        categorySlug
+      );
 
       return new Response(JSON.stringify(products), { status: 200 });
     }

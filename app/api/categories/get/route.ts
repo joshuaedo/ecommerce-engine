@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 export async function GET(req: Request) {
   try {
-    const userId = await getLoggedInUserId();
+    // const userId = await getLoggedInUserId();
 
     const url = new URL(req.url);
 
@@ -15,9 +15,9 @@ export async function GET(req: Request) {
 
     const categorySlug = url.searchParams.get('categorySlug');
 
-    if (!userId) {
-      return new Response('Unauthenticated', { status: 401 });
-    }
+    // if (!userId) {
+    //   return new Response('Unauthenticated', { status: 401 });
+    // }
 
     if (!shopId) {
       return new Response('Missing shopId', { status: 400 });

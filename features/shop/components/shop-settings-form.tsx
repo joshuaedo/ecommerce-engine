@@ -19,6 +19,8 @@ import useShop from '../hooks/use-shop';
 import { Input } from '@/components/common/input';
 import { useRouter } from 'next/navigation';
 import DeleteShop from './delete-shop';
+import { ApiAlert } from '@/components/common/api';
+import useOrigin from '@/hooks/use-origin';
 
 interface ShopSettingsFormProps {
   initialShopData: Shop;
@@ -31,14 +33,13 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
     defaultValues: initialShopData,
   });
   const { updateShop, isUpdatingShop } = useShop(initialShopData.id);
+  const origin = useOrigin();
+  const baseUrl = `${origin}/api`;
 
   return (
     <>
       <div className='flex items-center justify-between'>
-        <Header
-          title='Shop Settings'
-          description='Manage your shop settings'
-        />
+        <Header title='Shop Settings' description='Manage your shop settings' />
         <DeleteShop id={initialShopData.id} name={initialShopData.name} />
       </div>
       <Separator />
@@ -109,6 +110,11 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           </div>
         </form>
       </Form>
+      <ApiAlert
+        title='NEXT_PUBLIC_SHOP_API_URL'
+        variant='public'
+        description={baseUrl}
+      />
     </>
   );
 };

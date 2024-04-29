@@ -1,5 +1,4 @@
 import { db } from '@/lib/db';
-import { Category } from '@prisma/client';
 import { ExtendedCategory } from '../types/extensions';
 
 type getCategoryOptions = {
@@ -11,28 +10,27 @@ type getCategoryOptions = {
 const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
   let category: ExtendedCategory | ExtendedCategory[] | null = null;
 
+  const include = {
+    images: true,
+    products: true,
+  };
+
   if (id) {
     category = await db.category.findUnique({
       where: { id },
-      include: {
-        images: true,
-      },
+      include,
     });
   }
   if (slug) {
     category = await db.category.findFirst({
       where: { slug },
-      include: {
-        images: true,
-      },
+      include,
     });
   }
   if (shopId && slug) {
     category = await db.category.findFirst({
       where: { shopId, slug },
-      include: {
-        images: true,
-      },
+      include,
     });
   } else if (shopId) {
     category = await db.category.findMany({
@@ -40,9 +38,7 @@ const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
       orderBy: {
         createdAt: 'desc',
       },
-      include: {
-        images: true,
-      },
+      include,
     });
   }
   return category;
