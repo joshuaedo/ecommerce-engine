@@ -10,13 +10,7 @@ export async function PATCH(req: Request) {
 
     const body = await req.json();
 
-    const { name,
-      images,
-      shopId,
-      slug,
-      price,
-      description,
-      categoryId, } =
+    const { name, images, shopId, slug, price, description, categorySlug } =
       CreateProductValidator.parse(body);
 
     if (!userId) {
@@ -41,7 +35,7 @@ export async function PATCH(req: Request) {
       creatorId: userId,
       price,
       description,
-      categoryId,
+      categorySlug,
     });
 
     return new Response(JSON.stringify(newProduct), { status: 200 });
