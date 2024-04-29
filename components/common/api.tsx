@@ -51,10 +51,10 @@ const ApiAlert = ({
         </div>
         <CopyButton />
       </AlertTitle>
-      <AlertDescription className='flex items-center'>
-        <code className='relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font font-semibold'>
+      <AlertDescription className='max-w-full flex items-center'>
+        <p className='truncate relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono font font-semibold'>
           {description}
-        </code>
+        </p>
       </AlertDescription>
     </Alert>
   );

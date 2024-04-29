@@ -63,7 +63,7 @@ export const ShopSwitcher = ({ className, items = [] }: ShopSwitcherProps) => {
             className={cn('min-w-[1200px] justify-between', className)}
           >
             <Store className='mr-2 size-4' />
-            {currentShop?.label}
+            <span className='hidden md:flex'>{currentShop?.label}</span>
             <ChevronsUpDown className='ml-auto size-4 shrink-0 opacity-50' />
           </Button>
         </PopoverTrigger>
