@@ -94,43 +94,41 @@ const ShopNavItems = ({ pathname }: { pathname: string }) => {
     shops.length > 0 && (
       <>
         <ShopSwitcher items={shops} />
-        <>
-          {isDesktop ? (
-            <div className={cn('flex items-center gap-4')}>
+        {isDesktop ? (
+          <div className={cn('flex items-center gap-4')}>
+            {routes.map((route) => (
+              <Link
+                key={route.label}
+                href={route.href}
+                className={cn(
+                  'text-sm font-medium transition-colors hover:text-primary',
+                  route?.active ? '' : 'text-muted-foreground'
+                )}
+              >
+                {route.label}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <DropdownMenu>
+            <DropdownMenuTrigger>Routes</DropdownMenuTrigger>
+            <DropdownMenuContent>
               {routes.map((route) => (
-                <Link
-                  key={route.label}
-                  href={route.href}
-                  className={cn(
-                    'text-sm font-medium transition-colors hover:text-primary',
-                    route?.active ? '' : 'text-muted-foreground'
-                  )}
-                >
-                  {route.label}
-                </Link>
+                <DropdownMenuItem key={route.label}>
+                  <Link
+                    href={route.href}
+                    className={cn(
+                      'text-sm font-medium transition-colors hover:text-primary',
+                      route?.active ? '' : 'text-muted-foreground'
+                    )}
+                  >
+                    {route.label}
+                  </Link>
+                </DropdownMenuItem>
               ))}
-            </div>
-          ) : (
-            <DropdownMenu>
-              <DropdownMenuTrigger>Routes</DropdownMenuTrigger>
-              <DropdownMenuContent>
-                {routes.map((route) => (
-                  <DropdownMenuItem key={route.label}>
-                    <Link
-                      href={route.href}
-                      className={cn(
-                        'text-sm font-medium transition-colors hover:text-primary',
-                        route?.active ? '' : 'text-muted-foreground'
-                      )}
-                    >
-                      {route.label}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          )}
-        </>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </>
     )
   );
