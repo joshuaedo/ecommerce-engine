@@ -1,4 +1,4 @@
-# Admin - Headless content management
+# Ecommerce Engine: Powering Seamless Online Stores
 
 ## Table of Contents
 
@@ -14,7 +14,7 @@
 
 ## Introduction
 
-Admin (HCM), is an independent application serves as an administrative interface that allows users to manage data and settings for their websites.
+Ecommerce Engine is a standalone application designed to provide an administrative interface that enables users to efficiently manage data and configure settings for their e-commerce websites.
 
 ### Frameworks
 
@@ -67,7 +67,7 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9745; Make general image cleaner utility function
 
- &#9744; Add logo, favicon and metadata
+ &#9745; Add logo, favicon and metadata
 
  &#9745; Make layout responsive
 
@@ -84,12 +84,12 @@ Before you begin, ensure you have the following software installed:
 
 ### Usage
 
-Follow these steps to set up and run admin locally.
+Follow these steps to set up and run ecommerce engine locally.
 
 1. Create a new project:
 
    ```bash
-   npx create-next-app --example https://github.com/joshuaedo/admin
+   npx create-next-app --example https://github.com/joshuaedo/ecommerce-engine
    ```
 
  2.  Create a `.env` file in the project root and add the following variables:
@@ -114,7 +114,7 @@ Follow these steps to set up and run admin locally.
 
 ## License
 
-This project is licensed under the MIT [License](https://github.com/joshuaedo/admin/blob/main/LICENSE) 
+This project is licensed under the MIT [License](https://github.com/joshuaedo/ecommerce-engine/blob/main/LICENSE) 
 
 ## Author
 

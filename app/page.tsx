@@ -13,7 +13,7 @@ export default function HomePage() {
   const { user } = useShopUser();
   const { shops } = useShop();
   const router = useRouter();
-  const { excerpt } = siteConfig;
+  const { excerpt, headline } = siteConfig;
   const isShopEmpty = shops && shops.length === 0;
 
   return (
@@ -21,7 +21,10 @@ export default function HomePage() {
       <section className='grid items-center gap-6'>
         <div className='flex max-w-[980px] flex-col items-start gap-2'>
           <h2 className='text-2xl lg:text-3xl font-semibold leading-tight tracking-tighter '>
-            Discover More with Admin. {user?.name}
+          {
+            user ? (`Welcome back. ${user?.name}`): (headline)
+          }
+             .
           </h2>
           <p className='max-w-[700px] text-base lg:text-lg'>{excerpt}</p>
         </div>

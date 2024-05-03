@@ -110,11 +110,7 @@ const ShopSettingsForm = ({ initialShopData }: ShopSettingsFormProps) => {
           </div>
         </form>
       </Form>
-      <ApiAlert
-        title='NEXT_PUBLIC_SHOP_API_URL'
-        variant='public'
-        description={baseUrl}
-      />
+      <ApiAlert title='API_URL' variant='public' description={baseUrl} />
     </>
   );
 };

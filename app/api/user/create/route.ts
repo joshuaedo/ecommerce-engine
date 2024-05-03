@@ -11,9 +11,9 @@ export async function PATCH(req: Request) {
     const { email, name, password } =
       SignUpWithEmailAndPasswordValidator.parse(body);
 
-    const adminUserExists = await getUserByEmail(email);
+    const eceUserUserExists = await getUserByEmail(email);
 
-    if (adminUserExists) {
+    if (eceUserUserExists) {
       return new Response('User with email already exists', { status: 400 });
     }
 
