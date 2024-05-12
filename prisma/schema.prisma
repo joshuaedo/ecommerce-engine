@@ -105,7 +105,7 @@ model Product {
   shop         Shop        @relation("ShopToProduct", fields: [shopId], references: [id])
   orderItems   OrderItem[] @relation("ProductToOrderItem")
 
-  @@unique([slug, categorySlug])
+  @@unique([slug, shopId])
 }
 
 model Image {

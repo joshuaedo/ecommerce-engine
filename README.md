@@ -61,7 +61,7 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9745; Add order feature
 
-  &#9744; Build shop dashboard page
+ &#9744; Build shop dashboard page
 
  &#9744; Implement multiple image upload in products feature
 

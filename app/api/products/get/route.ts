@@ -4,13 +4,10 @@ import {
   getProductBySlugAndCategorySlug,
   getProductsByShopIdAndCategorySlug,
 } from '@/features/products/lib/queries';
-import { getLoggedInUserId } from '@/features/user/lib/queries';
 import { z } from 'zod';
 
 export async function GET(req: Request) {
   try {
-    // const userId = await getLoggedInUserId();
-
     const url = new URL(req.url);
 
     const shopId = url.searchParams.get('shopId');
@@ -18,10 +15,6 @@ export async function GET(req: Request) {
     const productSlug = url.searchParams.get('productSlug');
 
     const categorySlug = url.searchParams.get('categorySlug');
-
-    // if (!userId) {
-    //   return new Response('Unauthenticated', { status: 401 });
-    // }
 
     if (!shopId) {
       return new Response('Missing shopId', { status: 400 });

@@ -18,15 +18,14 @@ export default function HomePage() {
 
   return (
     <div className='space-y-6 pb-6'>
-      <section className='grid items-center gap-6'>
-        <div className='flex max-w-[980px] flex-col items-start gap-2'>
-          <h2 className='text-2xl lg:text-3xl font-semibold leading-tight tracking-tighter '>
-          {
-            user ? (`Welcome back. ${user?.name}`): (headline)
-          }
-             .
-          </h2>
-          <p className='max-w-[700px] text-base lg:text-lg'>{excerpt}</p>
+      <section>
+        <div className='grid items-center gap-6'>
+          <div className='flex max-w-[980px] flex-col items-start gap-2'>
+            <h2 className='text-2xl lg:text-3xl font-semibold leading-tight tracking-tighter '>
+              {user ? `Welcome back. ${user?.name}` : headline}.
+            </h2>
+            <p className='max-w-[700px] text-base lg:text-lg'>{excerpt}</p>
+          </div>
         </div>
       </section>
       <section>
@@ -45,7 +44,7 @@ export default function HomePage() {
               router.push('/sign-in');
             }}
           >
-            Sign In
+            Get Started
           </Button>
         )}
       </section>

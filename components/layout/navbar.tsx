@@ -27,7 +27,7 @@ const { title, creator, github, siteName } = siteConfig;
 
 const HomeNavItems = () => {
   return (
-    <div className='ml-auto flex gap-4'>
+    <div className='ml-auto flex gap-2 lg:gap-4'>
       <Link href={creator.website} target='_blank' rel='noreferrer'>
         <div
           className={buttonVariants(false)({
@@ -150,13 +150,15 @@ const Navbar = ({}: NavbarProps) => {
 
   return (
     <nav className='border-b py-3 px-7'>
-      <div className='flex items-center gap-4'>
+      <div className='flex items-center gap-2 lg:gap-4'>
         <div className='flex items-center gap-4 w-full'>
-          <div className='font-semibold text-base tracking-tight'>
-            <Link href='/' className='hidden lg:flex'>
+          <div className='font-semibold text-sm md:text-base tracking-tight'>
+            <Link href='/' className='hidden lg:flex items-center'>
+              <Icons.logo className='size-5' />
               {title}
             </Link>
-            <Link href='/' className='flex lg:hidden'>
+            <Link href='/' className='flex lg:hidden items-center'>
+              <Icons.logo className='size-5' />
               {siteName}
             </Link>
           </div>

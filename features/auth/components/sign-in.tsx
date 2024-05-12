@@ -26,6 +26,7 @@ import {
 } from '../types/validator';
 import useAuth from '../hooks/use-auth';
 import { Icons } from '@/components/common/icons';
+import { siteConfig } from '@/config/site';
 
 const SignInForm = () => {
   const form = useForm<SignInWithEmailAndPasswordType>({
@@ -43,6 +44,8 @@ const SignInForm = () => {
     isSigningInWithEmailAndPassword,
   } = useAuth();
 
+  const { siteName } = siteConfig;
+
   return (
     <div
       style={{ height: '100svh' }}
@@ -50,7 +53,7 @@ const SignInForm = () => {
     >
       <Card className=''>
         <CardHeader>
-          <CardTitle className='text-2xl'>Sign in</CardTitle>
+          <CardTitle className='text-2xl'>Sign in to {siteName}.</CardTitle>
           <CardDescription>
             Enter your email below to sign in to your account
           </CardDescription>

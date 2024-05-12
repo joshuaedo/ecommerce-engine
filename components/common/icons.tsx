@@ -3,19 +3,19 @@ import { LucideProps, Moon, SunMedium, User } from 'lucide-react';
 
 import { siteConfig } from '@/config/site';
 
-const { images, siteName } = siteConfig;
+const { siteName } = siteConfig;
 
 export const Icons = {
   user: User,
   sun: SunMedium,
   moon: Moon,
-  logo: (className: any) => (
+  logo: ({ className }: { className: string }) => (
     <Image
-      src={images[0]}
-      alt={siteName}
-      width={100}
-      height={100}
-      className={`mx-auto rounded-full ${className}`}
+      src='/android-chrome-192x192.png'
+      alt={`${siteName}'s logo`}
+      width={192}
+      height={192}
+      className={`mx-auto fill-current ${className}`}
     />
   ),
   gitHub: (props: LucideProps) => (

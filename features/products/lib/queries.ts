@@ -22,31 +22,29 @@ const getProduct = async ({
     creator: true,
   };
 
-  if (id) {
+  if (id !== undefined) {
     product = await db.product.findUnique({
       where: { id },
       include: extensions,
     });
   }
-  if (slug) {
+  if (slug !== undefined) {
     product = await db.product.findFirst({
       where: { slug },
       include: extensions,
     });
   }
-  if (shopId && slug) {
+  if (shopId !== undefined && slug !== undefined) {
     product = await db.product.findFirst({
-      where: { shopId, slug },
+      where: { slug, shopId },
       include: extensions,
     });
-  }
-  if (categorySlug && slug) {
+  } else if (categorySlug !== undefined && slug !== undefined) {
     product = await db.product.findFirst({
       where: { categorySlug, slug },
       include: extensions,
     });
-  }
-  if (categorySlug) {
+  } else if (categorySlug !== undefined) {
     product = await db.product.findMany({
       where: { categorySlug, isArchived: false || undefined },
       orderBy: {
@@ -54,8 +52,7 @@ const getProduct = async ({
       },
       include: extensions,
     });
-  }
-  if (shopId && categorySlug) {
+  } else if (shopId !== undefined && categorySlug !== undefined) {
     product = await db.product.findMany({
       where: { shopId, categorySlug, isArchived: false || undefined },
       orderBy: {
@@ -63,7 +60,7 @@ const getProduct = async ({
       },
       include: extensions,
     });
-  } else if (shopId) {
+  } else if (shopId !== undefined) {
     product = await db.product.findMany({
       where: { shopId, isArchived: false || undefined },
       orderBy: {
@@ -72,6 +69,7 @@ const getProduct = async ({
       include: extensions,
     });
   }
+
   return product;
 };
 

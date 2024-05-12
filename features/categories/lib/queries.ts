@@ -20,18 +20,18 @@ const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
       where: { id },
       include,
     });
-  }
-  if (slug) {
-    category = await db.category.findFirst({
-      where: { slug },
-      include,
-    });
-  }
-  if (shopId && slug) {
-    category = await db.category.findFirst({
-      where: { shopId, slug },
-      include,
-    });
+  } else if (slug) {
+    if (shopId) {
+      category = await db.category.findFirst({
+        where: { shopId, slug },
+        include,
+      });
+    } else {
+      category = await db.category.findFirst({
+        where: { slug },
+        include,
+      });
+    }
   } else if (shopId) {
     category = await db.category.findMany({
       where: { shopId },

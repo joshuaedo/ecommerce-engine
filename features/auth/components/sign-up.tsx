@@ -25,6 +25,7 @@ import {
   SignUpWithEmailAndPasswordType,
   SignUpWithEmailAndPasswordValidator,
 } from '../types/validator';
+import { siteConfig } from '@/config/site';
 
 const SignUpForm = () => {
   const form = useForm<SignUpWithEmailAndPasswordType>({
@@ -43,6 +44,9 @@ const SignUpForm = () => {
     isSigningUpWithEmailAndPassword,
   } = useAuth();
 
+  
+  const { siteName } = siteConfig;
+
   return (
     <div
       style={{ height: '100svh' }}
@@ -50,7 +54,7 @@ const SignUpForm = () => {
     >
       <Card className=''>
         <CardHeader>
-          <CardTitle className='text-2xl'>Sign up</CardTitle>
+          <CardTitle className='text-2xl'>Sign up for {siteName}.</CardTitle>
           <CardDescription>
             Enter your details below to create your account
           </CardDescription>
