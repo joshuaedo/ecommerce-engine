@@ -9,6 +9,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { CategoryColumn, categoryColumns } from './category-columns';
 import { DataTable } from '@/components/common/data-table';
 import { Card, CardContent } from '@/components/common/card';
+import useMounted from '@/hooks/use-mounted';
+import { Loader } from '@/components/common/loader';
 
 interface CategoriesProps {
   categories: CategoryColumn[];
@@ -50,9 +52,18 @@ const CategoriesLayout = ({
 
 const Categories = ({ categories }: CategoriesProps) => {
   const categoryCount = categories ? categories.length : 0;
+  const isMounted = useMounted();
   return (
     <CategoriesLayout categoryCount={categoryCount}>
-      <DataTable searchKey='name' columns={categoryColumns} data={categories} />
+      {isMounted ? (
+        <DataTable
+          searchKey='name'
+          columns={categoryColumns}
+          data={categories}
+        />
+      ) : (
+        <Loader />
+      )}
     </CategoriesLayout>
   );
 };

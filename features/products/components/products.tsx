@@ -9,6 +9,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { ProductColumn, productColumns } from './product-columns';
 import { DataTable } from '@/components/common/data-table';
 import { Card, CardContent } from '@/components/common/card';
+import { Loader } from '@/components/common/loader';
+import useMounted from '@/hooks/use-mounted';
 
 interface ProductsProps {
   products: ProductColumn[];
@@ -49,10 +51,15 @@ const ProductsLayout = ({
 
 const Products = ({ products }: ProductsProps) => {
   const productCount = products ? products.length : 0;
+  const isMounted = useMounted();
 
   return (
     <ProductsLayout productCount={productCount}>
-      <DataTable searchKey='name' columns={productColumns} data={products} />
+      {isMounted ? (
+        <DataTable searchKey='name' columns={productColumns} data={products} />
+      ) : (
+        <Loader />
+      )}
     </ProductsLayout>
   );
 };

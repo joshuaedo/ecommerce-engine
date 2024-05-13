@@ -2,7 +2,11 @@ import { z } from 'zod';
 
 const CreateCategoryValidator = z.object({
   name: z.string().min(3).max(100),
-  imageUrl: z.string(),
+  images: z
+    .object({
+      url: z.string(),
+    })
+    .array(),
   shopId: z.string(),
   slug: z.string(),
   creatorId: z.string(),
@@ -11,7 +15,11 @@ const CreateCategoryValidator = z.object({
 const UpdateCategoryValidator = z.object({
   id: z.string(),
   name: z.string().min(3).max(100),
-  imageUrl: z.string(),
+  images: z
+    .object({
+      url: z.string(),
+    })
+    .array(),
   shopId: z.string(),
   slug: z.string(),
   creatorId: z.string(),

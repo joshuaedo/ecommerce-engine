@@ -10,7 +10,7 @@ export async function PATCH(req: Request) {
 
     const body = await req.json();
 
-    const { name, shopId, imageUrl, slug } =
+    const { name, shopId, images, slug } =
       CreateCategoryValidator.parse(body);
 
     if (!userId) {
@@ -30,7 +30,7 @@ export async function PATCH(req: Request) {
     const newCategory = await createNewCategory({
       name,
       shopId,
-      imageUrl,
+      images,
       creatorId: userId,
       slug,
     });

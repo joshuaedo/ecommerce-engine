@@ -8,6 +8,8 @@ import { ListOrdered } from 'lucide-react';
 import { OrderColumn, orderColumns } from './order-columns';
 import { DataTable } from '@/components/common/data-table';
 import { Card, CardContent } from '@/components/common/card';
+import { Loader } from '@/components/common/loader';
+import useMounted from '@/hooks/use-mounted';
 
 interface OrdersProps {
   orders: OrderColumn[];
@@ -39,10 +41,16 @@ const OrdersLayout = ({
 
 const Orders = ({ orders }: OrdersProps) => {
   const orderCount = orders ? orders.length : 0;
+  const isMounted = useMounted();
 
   return (
     <OrdersLayout orderCount={orderCount}>
-      <DataTable searchKey='products' columns={orderColumns} data={orders} />
+      {isMounted ? (
+         <DataTable searchKey='products' columns={orderColumns} data={orders} />
+      ) : (
+        <Loader />
+      )}
+    
     </OrdersLayout>
   );
 };

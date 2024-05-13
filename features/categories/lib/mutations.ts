@@ -7,7 +7,6 @@ import {
 
 const createNewCategory = async ({
   name,
-  imageUrl,
   shopId,
   slug,
   creatorId,
@@ -22,28 +21,7 @@ const createNewCategory = async ({
       },
     });
 
-    const image = await db.image.create({
-      data: {
-        url: imageUrl,
-        creatorId,
-        categorySlug: category.slug,
-      },
-    });
-
-    const updatedCategory = await db.category.update({
-      where: {
-        id: category.id,
-      },
-      data: {
-        images: {
-          connect: {
-            id: image.id,
-          },
-        },
-      },
-    });
-
-    return updatedCategory;
+    return category;
   } catch (error: any) {
     throw new Error(`Failed to create new category: ${error.message}`);
   }
@@ -51,31 +29,25 @@ const createNewCategory = async ({
 
 const updateCategory = async (data: UpdateCategoryType) => {
   try {
-    const image = await db.image.findFirst({
-      where: {
-        categorySlug: data.slug,
+    const where = {
+      id: data.id,
+      shopId: data.shopId,
+      creatorId: data.creatorId,
+    };
+
+    await db.category.update({
+      where,
+      data: {
+        name: data?.name,
+        slug: data?.slug,
       },
     });
 
     const updatedCategory = await db.category.update({
-      where: {
-        id: data.id,
-        shopId: data.shopId,
-        creatorId: data.creatorId,
-      },
+      where,
       data: {
         name: data?.name,
         slug: data?.slug,
-        images: {
-          update: {
-            where: {
-              id: image?.id,
-            },
-            data: {
-              url: data?.imageUrl,
-            },
-          },
-        },
       },
     });
 

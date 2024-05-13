@@ -136,9 +136,7 @@ const ProductSettingsForm = ({
                     <ImageUpload
                       disabled={isUpdatingProduct || isCreatingProduct}
                       value={field.value.map((image) => image.url)}
-                      onChange={(url) =>
-                        field.onChange([...field.value, { url }])
-                      }
+                      onChange={(urls) => field.onChange(urls)}
                       onRemove={(url) =>
                         field.onChange(field.value.filter((i) => i.url !== url))
                       }

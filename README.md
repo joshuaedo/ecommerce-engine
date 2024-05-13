@@ -63,7 +63,7 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9744; Build shop dashboard page
 
- &#9744; Implement multiple image upload in products feature
+ &#9745; Implement multiple image upload in products feature
 
  &#9745; Make general image cleaner utility function
 

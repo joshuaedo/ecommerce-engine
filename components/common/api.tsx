@@ -8,6 +8,7 @@ import { copyToClipboard } from '@/lib/utils';
 import useOrigin from '@/hooks/use-origin';
 import { useParams } from 'next/navigation';
 import useMounted from '@/hooks/use-mounted';
+import { Loader } from './loader';
 
 interface ApiAlertProps {
   title: string;
@@ -102,19 +103,19 @@ const ApiList = ({ entityName, entitySlugName }: ApiListProps) => {
     },
   ];
 
-  return (
-    isMounted && (
-      <>
-        {alerts.map((alert) => (
-          <ApiAlert
-            key={alert.title}
-            title={alert.title}
-            description={alert.description}
-            variant={alert.variant}
-          />
-        ))}
-      </>
-    )
+  return isMounted ? (
+    <>
+      {alerts.map((alert) => (
+        <ApiAlert
+          key={alert.title}
+          title={alert.title}
+          description={alert.description}
+          variant={alert.variant}
+        />
+      ))}
+    </>
+  ) : (
+    <Loader />
   );
 };
 
