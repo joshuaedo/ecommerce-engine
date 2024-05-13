@@ -55,13 +55,9 @@ Some custom React hooks and utilities to enhance functionality and development e
 
 &#9745; Add products feature
 
- &#9744; Build home page
-
  &#9745; Add description to shop model
 
  &#9745; Add order feature
-
- &#9744; Build shop dashboard page
 
  &#9745; Implement multiple image upload in products feature
 
@@ -70,6 +66,8 @@ Some custom React hooks and utilities to enhance functionality and development e
  &#9745; Add logo, favicon and metadata
 
  &#9745; Make layout responsive
+
+ &#9744; Build shop dashboard page and finish home page
 
  &#9744; Deploy and test on mobile
 

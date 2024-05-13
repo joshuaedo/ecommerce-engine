@@ -12,7 +12,13 @@ const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
 
   const include = {
     images: true,
-    products: true,
+    products: {
+      include: {
+        images: true,
+        category: true,
+        creator: true,
+      },
+    },
   };
 
   if (id) {
