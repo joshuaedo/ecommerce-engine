@@ -156,7 +156,7 @@ const Navbar = ({}: NavbarProps) => {
   }, [pathname, isShopPage]);
 
   return (
-    <nav className='fixed w-full bg-inherit border-b py-3 px-7'>
+    <nav className='fixed w-full bg-white border-b py-3 px-7 z-50'>
       <div className='flex items-center gap-2 lg:gap-4'>
         <div className='flex items-center gap-4 w-full'>
           <div className='font-semibold text-sm md:text-base tracking-tight'>
