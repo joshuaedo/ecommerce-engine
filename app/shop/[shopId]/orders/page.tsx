@@ -21,7 +21,7 @@ const OrdersPage = async ({ params }: OrdersPageProps) => {
     return {
       id: order?.id,
       phone: order?.phone,
-      address: order?.address,
+      // address: order?.address,
       products: order.orderItems
         .map((orderItem) => orderItem.product.name)
         .join(', '),

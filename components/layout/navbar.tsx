@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import UserAvatar from '../common/user-avatar';
 import { ShopSwitcher } from '@/features/shop/components/shop-switcher';
@@ -20,6 +20,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../common/dropdown-menu';
+import { Route } from 'lucide-react';
 
 interface NavbarProps {}
 
@@ -60,6 +61,7 @@ const HomeNavItems = () => {
 const ShopNavItems = ({ pathname }: { pathname: string }) => {
   const { shops } = useShop();
   const { lg } = useMediaQuery();
+  const router = useRouter();
   const params = useParams();
   const routes = [
     {
@@ -111,19 +113,23 @@ const ShopNavItems = ({ pathname }: { pathname: string }) => {
           </div>
         ) : (
           <DropdownMenu>
-            <DropdownMenuTrigger>Routes</DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuTrigger className='flex gap-2 items-center'>
+              Routes
+              <Route className='size-3' />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='space-y-1'>
               {routes.map((route) => (
                 <DropdownMenuItem key={route.label}>
-                  <Link
-                    href={route.href}
+                  <div
+                    role='link'
+                    onClick={() => router.push(route.href)}
                     className={cn(
-                      'text-sm font-medium transition-colors hover:text-primary',
+                      'text-sm font-medium transition-colors hover:text-primary py-0',
                       route?.active ? '' : 'text-muted-foreground'
                     )}
                   >
                     {route.label}
-                  </Link>
+                  </div>
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
@@ -150,7 +156,7 @@ const Navbar = ({}: NavbarProps) => {
   }, [pathname, isShopPage]);
 
   return (
-    <nav className='border-b py-3 px-7'>
+    <nav className='fixed w-full bg-inherit border-b py-3 px-7'>
       <div className='flex items-center gap-2 lg:gap-4'>
         <div className='flex items-center gap-4 w-full'>
           <div className='font-semibold text-sm md:text-base tracking-tight'>

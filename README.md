@@ -67,9 +67,9 @@ Some custom React hooks and utilities to enhance functionality and development e
 
  &#9745; Make layout responsive
 
- &#9744; Build shop dashboard page and finish home page
+ &#9745; Build shop dashboard page and finish home page
 
- &#9744; Deploy and test on mobile
+ &#9745; Deploy on vercel and test on mobile
 
  &#9744; Add forgot password feature
 

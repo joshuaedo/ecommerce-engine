@@ -17,7 +17,7 @@ export default function RootLayoutClient({
     <>
       <Navbar />
 
-      <main className='container min-h-[81svh] flex flex-col'>
+      <main className='container min-h-[91svh] flex flex-col pt-16'>
         <div className='flex-1 space-y-4 py-4'>{children}</div>
       </main>
 
