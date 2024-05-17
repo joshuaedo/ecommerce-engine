@@ -129,8 +129,9 @@ model Order {
   shop       Shop        @relation("ShopToOrder", fields: [shopId], references: [id])
   orderItems OrderItem[] @relation("OrderToOrderItem")
   isPaid     Boolean     @default(false)
-  phone      String
-  address    String
+  phone      String?
+  address    String?
+  totalPrice Decimal
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
 }

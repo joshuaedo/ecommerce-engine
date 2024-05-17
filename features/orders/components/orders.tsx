@@ -27,7 +27,7 @@ const OrdersLayout = ({
       <div className='w-full flex items-center justify-between'>
         <Header title={`Orders (${orderCount})`} description='Manage orders' />
         <Button size='icon' onClick={() => {}}>
-          <ListOrdered className='mr-4 size-4' />
+          <ListOrdered className='size-4' />
         </Button>
       </div>
       <Separator />

@@ -18,11 +18,6 @@ const OrdersPage = async ({ params }: OrdersPageProps) => {
   const ordersArray = Array.isArray(orders) ? orders : [orders];
 
   const formattedOrders: OrderColumn[] = ordersArray.map((order) => {
-    const reducedItems = order?.orderItems.reduce((total, item) => {
-      const itemPrice = item.product?.price ? item.product.price.toNumber() : 0;
-      return total + itemPrice;
-    }, 0);
-
     return {
       id: order?.id,
       phone: order?.phone,
@@ -30,7 +25,7 @@ const OrdersPage = async ({ params }: OrdersPageProps) => {
       products: order.orderItems
         .map((orderItem) => orderItem.product.name)
         .join(', '),
-      totalPrice: formatPrice(reducedItems),
+      totalPrice: formatPrice(order?.totalPrice),
       createdAt: format(order?.createdAt, 'MMMM do, yyyy'),
       isPaid: order?.isPaid,
     };

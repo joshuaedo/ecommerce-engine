@@ -44,17 +44,15 @@ const SignUpForm = () => {
     isSigningUpWithEmailAndPassword,
   } = useAuth();
 
-  
   const { siteName } = siteConfig;
 
   return (
-    <div
-      style={{ height: '100svh' }}
-      className='flex items-center justify-center'
-    >
+    <div className='flex items-center justify-center min-h-[75svh]'>
       <Card className=''>
         <CardHeader>
-          <CardTitle className='text-2xl'>Sign up for {siteName}.</CardTitle>
+          <CardTitle className='text-lg lg:text-2xl'>
+            Sign up for {siteName}.
+          </CardTitle>
           <CardDescription>
             Enter your details below to create your account
           </CardDescription>

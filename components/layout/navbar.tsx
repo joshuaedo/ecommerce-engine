@@ -59,7 +59,7 @@ const HomeNavItems = () => {
 
 const ShopNavItems = ({ pathname }: { pathname: string }) => {
   const { shops } = useShop();
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const { lg } = useMediaQuery();
   const params = useParams();
   const routes = [
     {
@@ -94,7 +94,7 @@ const ShopNavItems = ({ pathname }: { pathname: string }) => {
     shops.length > 0 && (
       <>
         <ShopSwitcher items={shops} />
-        {isDesktop ? (
+        {lg ? (
           <div className={cn('flex items-center gap-4')}>
             {routes.map((route) => (
               <Link
@@ -136,6 +136,7 @@ const ShopNavItems = ({ pathname }: { pathname: string }) => {
 
 const Navbar = ({}: NavbarProps) => {
   const { user: shopUser } = useShopUser();
+  const { isSmallMobile, isLargeMobile, md } = useMediaQuery();
   const pathname = usePathname();
   const isShopPage = pathname.includes('/shop/');
   const [navItems, setNavItems] = useState(<></>);
@@ -153,14 +154,23 @@ const Navbar = ({}: NavbarProps) => {
       <div className='flex items-center gap-2 lg:gap-4'>
         <div className='flex items-center gap-4 w-full'>
           <div className='font-semibold text-sm md:text-base tracking-tight'>
-            <Link href='/' className='hidden lg:flex items-center'>
-              <Icons.logo className='size-5' />
-              {title}
-            </Link>
-            <Link href='/' className='flex lg:hidden items-center'>
-              <Icons.logo className='size-5' />
-              {siteName}
-            </Link>
+            {isSmallMobile && (
+              <Link href='/' className='flex items-center'>
+                <Icons.logo className='size-5' />
+              </Link>
+            )}
+            {isLargeMobile && (
+              <Link href='/' className='flex items-center'>
+                <Icons.logo className='size-5' />
+                {siteName}
+              </Link>
+            )}
+            {md && (
+              <Link href='/' className='flex items-center'>
+                <Icons.logo className='size-5' />
+                {title}
+              </Link>
+            )}
           </div>
           {navItems}
         </div>

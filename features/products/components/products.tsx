@@ -37,7 +37,7 @@ const ProductsLayout = ({
           size='icon'
           onClick={() => router.push(`/shop/${params.shopId}/products/new`)}
         >
-          <Plus className='mr-4 size-4' />
+          <Plus className='size-4' />
         </Button>
       </div>
       <Separator />

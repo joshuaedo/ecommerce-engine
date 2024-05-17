@@ -38,7 +38,7 @@ const buttonVariants = (isMagnetic: boolean) => {
           sm: 'h-9 px-2',
           xs: 'h-8 px-1.5',
           lg: 'h-11 px-8',
-          icon: 'h-10 w-10',
+          icon: 'size-10',
         },
       },
       defaultVariants: {

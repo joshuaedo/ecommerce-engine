@@ -37,9 +37,9 @@ export function Modal({
   close = 'Close',
   children,
 }: ModalProps) {
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const { lg } = useMediaQuery();
 
-  if (isDesktop) {
+  if (lg) {
     return (
       <Dialog>
         {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}

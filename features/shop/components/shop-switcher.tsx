@@ -60,7 +60,7 @@ export const ShopSwitcher = ({ className, items = [] }: ShopSwitcherProps) => {
             size='sm'
             role='combobox'
             aria-expanded={open}
-            className={cn('min-w-[1200px] justify-between', className)}
+            className={cn('justify-between', className)}
           >
             <Store className='mr-2 size-4' />
             <span className='hidden lg:flex'>{currentShop?.label}</span>
