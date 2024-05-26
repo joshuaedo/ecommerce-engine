@@ -14,7 +14,7 @@ interface ProductsPageProps {
 }
 
 const ProductsPage = async ({ params }: ProductsPageProps) => {
-  const products = await getProductsByShopId(params.shopId);
+  const products = await getProductsByShopId({shopId: params.shopId});
 
   if (!products) return <EmptyProducts />;
 

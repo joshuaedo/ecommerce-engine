@@ -13,7 +13,7 @@ interface CategoriesPageProps {
 }
 
 const CategoriesPage = async ({ params }: CategoriesPageProps) => {
-  const categories = await getCategoriesByShopId(params.shopId);
+  const categories = await getCategoriesByShopId({ shopId: params.shopId });
 
   if (!categories) return <EmptyCategories />;
 

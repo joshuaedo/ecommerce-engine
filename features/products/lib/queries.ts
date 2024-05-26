@@ -6,6 +6,8 @@ type getProductOptions = {
   id?: string | undefined;
   shopId?: string | undefined;
   categorySlug?: string | undefined;
+  limit?: string | null | undefined;
+  page?: string | undefined | null;
 };
 
 const getProduct = async ({
@@ -13,6 +15,8 @@ const getProduct = async ({
   id,
   shopId,
   categorySlug,
+  limit,
+  page,
 }: getProductOptions) => {
   let product: ExtendedProduct | ExtendedProduct[] | null = null;
 
@@ -61,59 +65,88 @@ const getProduct = async ({
       include: extensions,
     });
   } else if (shopId !== undefined) {
-    product = await db.product.findMany({
-      where: { shopId, isArchived: false || undefined },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: extensions,
-    });
+    if (limit === undefined || limit === null) {
+      product = await db.product.findMany({
+        where: { shopId, isArchived: false || undefined },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: extensions,
+      });
+    } else {
+      if (page === undefined || page === null) {
+        product = await db.product.findMany({
+          where: { shopId, isArchived: false || undefined },
+          take: parseInt(limit),
+          orderBy: {
+            createdAt: 'desc',
+          },
+          include: extensions,
+        });
+      } else {
+        product = await db.product.findMany({
+          where: { shopId, isArchived: false || undefined },
+          take: parseInt(limit),
+          skip: (parseInt(page) - 1) * parseInt(limit),
+          orderBy: {
+            name: 'asc',
+          },
+          include: extensions,
+        });
+      }
+    }
   }
 
   return product;
 };
 
-const getProductBySlug = async (slug: string | undefined) => {
+const getProductBySlug = async ({ slug }: getProductOptions) => {
   return await getProduct({ slug });
 };
 
-const getProductById = async (id: string | undefined) => {
+const getProductById = async ({ id }: getProductOptions) => {
   return await getProduct({ id });
 };
 
-const getProductByShopIdAndSlug = async (
-  shopId: string | undefined,
-  slug: string | undefined
-) => {
+const getProductBySlugAndShopId = async ({
+  shopId,
+  slug,
+}: getProductOptions) => {
   return await getProduct({ shopId, slug });
 };
 
-const getProductBySlugAndCategorySlug = async (
-  slug: string | undefined,
-  categorySlug: string | undefined
-) => {
+const getProductBySlugAndCategorySlug = async ({
+  slug,
+  categorySlug,
+}: getProductOptions) => {
   return await getProduct({ slug, categorySlug });
 };
 
-const getProductsByCategorySlug = async (categorySlug: string | undefined) => {
+const getProductsByCategorySlug = async ({
+  categorySlug,
+}: getProductOptions) => {
   return await getProduct({ categorySlug });
 };
 
-const getProductsByShopIdAndCategorySlug = async (
-  shopId: string | undefined,
-  categorySlug: string | undefined
-) => {
+const getProductsByShopIdAndCategorySlug = async ({
+  shopId,
+  categorySlug,
+}: getProductOptions) => {
   return await getProduct({ shopId, categorySlug });
 };
 
-const getProductsByShopId = async (shopId: string | undefined) => {
-  return await getProduct({ shopId });
+const getProductsByShopId = async ({
+  shopId,
+  limit,
+  page,
+}: getProductOptions) => {
+  return await getProduct({ shopId, limit, page });
 };
 
 export {
   getProductBySlug,
   getProductById,
-  getProductByShopIdAndSlug,
+  getProductBySlugAndShopId,
   getProductsByShopId,
   getProductsByCategorySlug,
   getProductsByShopIdAndCategorySlug,

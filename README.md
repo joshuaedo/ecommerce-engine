@@ -55,23 +55,35 @@ Some custom React hooks and utilities to enhance functionality and development e
 
 &#9745; Add products feature
 
- &#9745; Add description to shop model
+&#9745; Add description to shop model
 
- &#9745; Add order feature
+&#9745; Add order feature
 
- &#9745; Implement multiple image upload in products feature
+&#9745; Implement multiple image upload in products feature
 
- &#9745; Make general image cleaner utility function
+&#9745; Make general image cleaner utility function
 
- &#9745; Add logo, favicon and metadata
+&#9745; Add logo, favicon and metadata
 
- &#9745; Make layout responsive
+&#9745; Make layout responsive
 
- &#9745; Build shop dashboard page and finish home page
+&#9745; Build shop dashboard page and finish home page
 
- &#9745; Deploy on vercel and test on mobile
+&#9745; Deploy on vercel and test on mobile
 
- &#9744; Add forgot password feature
+&#9744; Add better error messages/toasts to category, product and shop settings-forms
+
+&#9744; .trim() name and other relevant properties during feature creation and update 
+
+&#9744; Sort product and category queries
+
+&#9744; Add forgot password feature?
+
+&#9744; Add filters to data-table?
+
+&#9744; Address isFeatured and isArchived in product-settings-form?
+
+&#9744; Add formatter to product price input?
 
 ### Prerequisites
 

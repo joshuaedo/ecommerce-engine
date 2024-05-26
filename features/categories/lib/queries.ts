@@ -5,14 +5,23 @@ type getCategoryOptions = {
   slug?: string | undefined;
   id?: string | undefined;
   shopId?: string | undefined;
+  productLimit?: string | null | undefined;
 };
 
-const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
+const getCategory = async ({
+  slug,
+  id,
+  shopId,
+  productLimit,
+}: getCategoryOptions): Promise<
+  ExtendedCategory | ExtendedCategory[] | null
+> => {
   let category: ExtendedCategory | ExtendedCategory[] | null = null;
 
   const include = {
     images: true,
     products: {
+      take: productLimit ? parseInt(productLimit): 200,
       include: {
         images: true,
         category: true,
@@ -42,7 +51,7 @@ const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
     category = await db.category.findMany({
       where: { shopId },
       orderBy: {
-        createdAt: 'desc',
+        name: 'asc',
       },
       include,
     });
@@ -50,23 +59,30 @@ const getCategory = async ({ slug, id, shopId }: getCategoryOptions) => {
   return category;
 };
 
-const getCategoryBySlug = async (slug: string | undefined) => {
-  return await getCategory({ slug });
+const getCategoryBySlug = async ({
+  slug,
+  productLimit,
+}: getCategoryOptions) => {
+  return await getCategory({ slug, productLimit });
 };
 
-const getCategoryById = async (id: string | undefined) => {
-  return await getCategory({ id });
+const getCategoryById = async ({ id, productLimit }: getCategoryOptions) => {
+  return await getCategory({ id, productLimit });
 };
 
-const getCategoryByShopIdAndSlug = async (
-  shopId: string | undefined,
-  slug: string | undefined
-) => {
-  return await getCategory({ shopId, slug });
+const getCategoryByShopIdAndSlug = async ({
+  shopId,
+  slug,
+  productLimit,
+}: getCategoryOptions) => {
+  return await getCategory({ shopId, slug, productLimit });
 };
 
-const getCategoriesByShopId = async (shopId: string | undefined) => {
-  return await getCategory({ shopId });
+const getCategoriesByShopId = async ({
+  shopId,
+  productLimit,
+}: getCategoryOptions) => {
+  return await getCategory({ shopId, productLimit });
 };
 
 export {

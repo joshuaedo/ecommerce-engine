@@ -16,6 +16,10 @@ export type ProductColumn = {
 
 export const productColumns: ColumnDef<ProductColumn>[] = [
   {
+    id: 'actions',
+    cell: ({ row }: any) => <ProductCellAction data={row.original} />,
+  },
+  {
     accessorKey: 'name',
     header: 'Name',
   },
@@ -43,9 +47,5 @@ export const productColumns: ColumnDef<ProductColumn>[] = [
   {
     accessorKey: 'createdAt',
     header: 'Date Created',
-  },
-  {
-    id: 'actions',
-    cell: ({ row }: any) => <ProductCellAction data={row.original} />,
   },
 ];

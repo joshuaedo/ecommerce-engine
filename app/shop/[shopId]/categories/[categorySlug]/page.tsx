@@ -13,7 +13,7 @@ const CategoryPage = async ({
   params: { categorySlug, shopId },
 }: CategoryPageProps) => {
   const userId = await getLoggedInUserId();
-  const category = await getCategoryBySlug(categorySlug);
+  const category = await getCategoryBySlug({ slug: categorySlug });
 
   const categoryObject = Array.isArray(category) ? category[0] : category;
 

@@ -20,11 +20,11 @@ const OrdersPage = async ({ params }: OrdersPageProps) => {
   const formattedOrders: OrderColumn[] = ordersArray.map((order) => {
     return {
       id: order?.id,
-      phone: order?.phone,
+      // phone: order?.phone,
       // address: order?.address,
-      products: order.orderItems
-        .map((orderItem) => orderItem.product.name)
-        .join(', '),
+      // products: order.orderItems
+      //   .map((orderItem) => orderItem.product.name)
+      //   .join(', '),
       totalPrice: formatPrice(order?.totalPrice),
       createdAt: format(order?.createdAt, 'MMMM do, yyyy'),
       isPaid: order?.isPaid,

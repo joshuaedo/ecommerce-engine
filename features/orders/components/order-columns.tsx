@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export type OrderColumn = {
   id: string;
-  phone: string | null;
+  // phone: string | null;
   // address: string | null;
-  products: string;
+  // products: string;
   totalPrice: string;
   createdAt: string;
   isPaid: boolean;
@@ -14,17 +14,21 @@ export type OrderColumn = {
 
 export const orderColumns: ColumnDef<OrderColumn>[] = [
   {
-    accessorKey: 'phone',
-    header: 'Phone',
+    accessorKey: 'id',
+    header: 'ID',
   },
+  // {
+  //   accessorKey: 'phone',
+  //   header: 'Phone',
+  // },
   // {
   //   accessorKey: 'address',
   //   header: 'Address',
   // },
-  {
-    accessorKey: 'products',
-    header: 'Products',
-  },
+  // {
+  //   accessorKey: 'products',
+  //   header: 'Products',
+  // },
   {
     accessorKey: 'totalPrice',
     header: 'Total Price',

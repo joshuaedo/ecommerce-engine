@@ -14,9 +14,9 @@ const ProductPage = async ({
   params: { productSlug, shopId },
 }: ProductPageProps) => {
   const userId = await getLoggedInUserId();
-  const product = await getProductBySlug(productSlug);
+  const product = await getProductBySlug({ slug: productSlug });
   const productObject = Array.isArray(product) ? product[0] : product;
-  const categories = await getCategoriesByShopId(shopId);
+  const categories = await getCategoriesByShopId({ shopId });
   const categoryArray = Array.isArray(categories) ? categories : [categories];
 
   return (
