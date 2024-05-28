@@ -23,7 +23,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   SignInWithEmailAndPasswordType,
   SignInWithEmailAndPasswordValidator,
-} from '../types/validator';
+} from '../types/validators';
 import useAuth from '../hooks/use-auth';
 import { Icons } from '@/components/common/icons';
 import { siteConfig } from '@/config/site';

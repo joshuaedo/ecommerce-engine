@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import {
   SignInWithEmailAndPasswordType,
   SignUpWithEmailAndPasswordType,
-} from '../types/validator';
+} from '../types/validators';
 import axios, { AxiosError } from 'axios';
 
 interface useAuthProps {}

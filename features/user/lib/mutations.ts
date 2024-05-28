@@ -1,5 +1,5 @@
 import { generateUserName } from '@/features/auth/lib/utils';
-import { SignUpWithEmailAndPasswordType } from './../../auth/types/validator';
+import { SignUpWithEmailAndPasswordType } from '../../auth/types/validators';
 import { db } from '@/lib/db';
 import { hash } from 'bcrypt';
 

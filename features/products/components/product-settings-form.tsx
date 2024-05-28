@@ -117,6 +117,9 @@ const ProductSettingsForm = ({
       <Separator />
       <Form {...form}>
         <form
+          // onSubmit={form.handleSubmit((e) =>
+          //   initialProductData ? updateProduct(e) : createProduct(e)
+          // )}
           onSubmit={(e) => {
             e.preventDefault();
             initialProductData

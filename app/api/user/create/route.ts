@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { SignUpWithEmailAndPasswordValidator } from '@/features/auth/types/validator';
+import { SignUpWithEmailAndPasswordValidator } from '@/features/auth/types/validators';
 import { getUserByEmail } from '@/features/user/lib/queries';
 import { createNewUser } from '@/features/user/lib/mutations';
 

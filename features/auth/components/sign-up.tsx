@@ -24,7 +24,7 @@ import useAuth from '../hooks/use-auth';
 import {
   SignUpWithEmailAndPasswordType,
   SignUpWithEmailAndPasswordValidator,
-} from '../types/validator';
+} from '../types/validators';
 import { siteConfig } from '@/config/site';
 
 const SignUpForm = () => {

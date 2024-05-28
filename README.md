@@ -75,7 +75,7 @@ Some custom React hooks and utilities to enhance functionality and development e
 
 &#9744; .trim() name and other relevant properties during feature creation and update 
 
-&#9744; Sort product and category queries
+&#9745; Sort product and category queries (especially getAllProducts)
 
 &#9744; Add forgot password feature?
 

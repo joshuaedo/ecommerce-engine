@@ -1,23 +1,29 @@
 import { z } from 'zod';
 
 const CreateShopValidator = z.object({
-  name: z.string().min(3).max(100),
-  description: z.string(),
-  creatorId: z.string(),
+  name: z
+    .string()
+    .min(3, { message: 'Name must be at least 3 characters long' })
+    .max(100, { message: 'Name cannot exceed 100 characters' }),
+  description: z.string({ message: 'Description is required' }),
+  creatorId: z.string({ message: 'Creator ID is required' }),
 });
 
 const GetShopsValidator = z.object({
-  userId: z.string(),
+  userId: z.string({ message: 'User ID is required' }),
 });
 
 const UpdateShopValidator = z.object({
-  id: z.string(),
-  name: z.string().min(3).max(100),
-  description: z.string(),
+  id: z.string({ message: 'Shop ID is required' }),
+  name: z
+    .string()
+    .min(3, { message: 'Name must be at least 3 characters long' })
+    .max(100, { message: 'Name cannot exceed 100 characters' }),
+  description: z.string({ message: 'Description is required' }),
 });
 
 const DeleteShopValidator = z.object({
-  id: z.string(),
+  id: z.string({ message: 'Shop ID is required' }),
 });
 
 export type CreateShopType = z.infer<typeof CreateShopValidator>;
