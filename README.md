@@ -71,11 +71,11 @@ Some custom React hooks and utilities to enhance functionality and development e
 
 &#9745; Deploy on vercel and test on mobile
 
-&#9744; Add better error messages/toasts to category, product and shop settings-forms
-
-&#9744; .trim() name and other relevant properties during feature creation and update 
-
 &#9745; Sort product and category queries (especially getAllProducts)
+
+&#9744; Enhance data consistency and optimization in feature mutations
+
+&#9744; Add better error messages/toasts to category, product and shop settings-forms
 
 &#9744; Add forgot password feature?
 

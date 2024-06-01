@@ -9,7 +9,7 @@ const createNewOrder = async ({
   shopId,
   products,
   isPaid,
-  totalPrice
+  totalPrice,
 }: CreateOrderType) => {
   try {
     const order = await db.order.create({
@@ -37,15 +37,23 @@ const createNewOrder = async ({
 
 const updateOrder = async ({ phone, address, isPaid, id }: UpdateOrderType) => {
   try {
+    const updateData: any = {
+      isPaid,
+    };
+
+    if (phone) {
+      updateData.phone = phone.trim();
+    }
+
+    if (address) {
+      updateData.address = address.trim();
+    }
+
     const order = await db.order.update({
       where: {
         id,
       },
-      data: {
-        isPaid,
-        phone: phone && phone,
-        address: address && address,
-      },
+      data: updateData,
       include: {
         orderItems: true,
       },

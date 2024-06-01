@@ -14,9 +14,9 @@ const createNewCategory = async ({
   try {
     const category = await db.category.create({
       data: {
-        name,
+        name: name.trim(),
         shopId,
-        slug,
+        slug: slug.trim(),
         creatorId,
       },
     });
@@ -35,19 +35,12 @@ const updateCategory = async (data: UpdateCategoryType) => {
       creatorId: data.creatorId,
     };
 
-    await db.category.update({
-      where,
-      data: {
-        name: data?.name,
-        slug: data?.slug,
-      },
-    });
-
+    // Update the category data
     const updatedCategory = await db.category.update({
       where,
       data: {
-        name: data?.name,
-        slug: data?.slug,
+        name: data?.name?.trim(),
+        slug: data?.slug?.trim(),
       },
     });
 

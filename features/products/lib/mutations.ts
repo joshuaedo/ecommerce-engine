@@ -20,24 +20,22 @@ const createNewProduct = async ({
   try {
     const product = await db.product.create({
       data: {
-        name,
+        name: name.trim(),
         shopId,
-        slug,
+        slug: slug.trim(),
         creatorId,
         price,
-        description,
-        categorySlug,
+        description: description.trim(),
+        categorySlug: categorySlug.trim(),
         isFeatured,
         isArchived,
         images: {
           createMany: {
-            data: [
-              ...images.map((image) => ({
-                url: image.url,
-                creatorId,
-                categorySlug,
-              })),
-            ],
+            data: images.map((image) => ({
+              url: image.url.trim(),
+              creatorId,
+              categorySlug: categorySlug.trim(),
+            })),
           },
         },
       },
@@ -45,47 +43,63 @@ const createNewProduct = async ({
 
     return product;
   } catch (error: any) {
-    throw new Error(`Failed to create new Product: ${error.message}`);
+    throw new Error(`Failed to create new product: ${error.message}`);
   }
 };
 
-const updateProduct = async (data: UpdateProductType) => {
-  const where = {
-    id: data.id,
-    shopId: data.shopId,
-    creatorId: data.creatorId,
-    categorySlug: data.categorySlug,
-  };
-
+const updateProduct = async ({
+  id,
+  shopId,
+  creatorId,
+  categorySlug,
+  name,
+  slug,
+  price,
+  description,
+  isFeatured,
+  isArchived,
+  images,
+}: UpdateProductType) => {
   try {
-    await db.product.update({
-      where,
-      data: {
-        name: data?.name,
-        slug: data?.slug,
-        price: data?.price,
-        description: data?.description,
-        isFeatured: data?.isFeatured,
-        isArchived: data?.isArchived,
-        images: {
-          deleteMany: {},
+    const where = {
+      id,
+      shopId,
+      creatorId,
+      categorySlug,
+    };
+
+    const updateData: any = {
+      name: name?.trim(),
+      slug: slug?.trim(),
+      price,
+      description: description?.trim(),
+      isFeatured,
+      isArchived,
+    };
+
+    if (images && images.length > 0) {
+      // Delete existing images
+      await db.image.deleteMany({
+        where: {
+          productId: id,
         },
-      },
-    });
+      });
+
+      // Add new images
+      updateData.images = {
+        createMany: {
+          data: images.map((image) => ({
+            url: image.url.trim(),
+            creatorId,
+            categorySlug: categorySlug.trim(),
+          })),
+        },
+      };
+    }
 
     const updatedProduct = await db.product.update({
       where,
-      data: {
-        images: {
-          createMany: {
-            data: data.images.map((image) => ({
-              url: image.url,
-              creatorId: data.creatorId,
-              categorySlug: data.categorySlug,
-            })),
-          },
-        },
-      },
+      data: updateData,
     });
 
     return updatedProduct;

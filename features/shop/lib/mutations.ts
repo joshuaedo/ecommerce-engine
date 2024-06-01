@@ -5,10 +5,18 @@ import {
   UpdateShopType,
 } from '../types/validators';
 
-const createNewShop = async (data: CreateShopType) => {
+const createNewShop = async ({
+  name,
+  description,
+  creatorId,
+}: CreateShopType) => {
   try {
     const shop = await db.shop.create({
-      data,
+      data: {
+        name: name.trim(),
+        description: description?.trim(),
+        creatorId,
+      },
     });
 
     return shop;
@@ -17,16 +25,23 @@ const createNewShop = async (data: CreateShopType) => {
   }
 };
 
-const updateShop = async (data: UpdateShopType) => {
+const updateShop = async ({ id, name, description }: UpdateShopType) => {
   try {
+    const updateData: any = {};
+
+    if (name) {
+      updateData.name = name.trim();
+    }
+
+    if (description) {
+      updateData.description = description.trim();
+    }
+
     const shop = await db.shop.update({
       where: {
-        id: data.id,
+        id,
       },
-      data: {
-        name: data?.name,
-        description: data?.description,
-      },
+      data: updateData,
     });
 
     return shop;
