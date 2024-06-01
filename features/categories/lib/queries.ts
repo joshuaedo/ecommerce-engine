@@ -21,7 +21,10 @@ const getCategory = async ({
   const include = {
     images: true,
     products: {
-      take: productLimit ? parseInt(productLimit): 200,
+      where: {
+        isArchived: false || undefined,
+      },
+      take: productLimit ? parseInt(productLimit) : 200,
       include: {
         images: true,
         category: true,

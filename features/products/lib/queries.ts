@@ -50,7 +50,7 @@ const getProduct = async ({
     });
   } else if (categorySlug !== undefined) {
     product = await db.product.findMany({
-      where: { categorySlug, isArchived: false || undefined },
+      where: { categorySlug, isArchived: false },
       orderBy: {
         createdAt: 'desc',
       },
@@ -58,7 +58,7 @@ const getProduct = async ({
     });
   } else if (shopId !== undefined && categorySlug !== undefined) {
     product = await db.product.findMany({
-      where: { shopId, categorySlug, isArchived: false || undefined },
+      where: { shopId, categorySlug, isArchived: false },
       orderBy: {
         createdAt: 'desc',
       },
@@ -67,7 +67,7 @@ const getProduct = async ({
   } else if (shopId !== undefined) {
     if (limit === undefined || limit === null) {
       product = await db.product.findMany({
-        where: { shopId, isArchived: false || undefined },
+        where: { shopId, isArchived: false },
         orderBy: {
           createdAt: 'desc',
         },
@@ -76,7 +76,7 @@ const getProduct = async ({
     } else {
       if (page === undefined || page === null) {
         product = await db.product.findMany({
-          where: { shopId, isArchived: false || undefined },
+          where: { shopId, isArchived: false },
           take: parseInt(limit),
           orderBy: {
             createdAt: 'desc',
@@ -85,7 +85,7 @@ const getProduct = async ({
         });
       } else {
         product = await db.product.findMany({
-          where: { shopId, isArchived: false || undefined },
+          where: { shopId, isArchived: false },
           take: parseInt(limit),
           skip: (parseInt(page) - 1) * parseInt(limit),
           orderBy: {
