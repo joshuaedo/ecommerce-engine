@@ -73,17 +73,15 @@ Some custom React hooks and utilities to enhance functionality and development e
 
 &#9745; Sort product and category queries (especially getAllProducts)
 
-&#9744; Enhance data consistency and optimization in feature mutations
+&#9745; Enhance data consistency and optimization in feature mutations
 
-&#9744; Add better error messages/toasts to category, product and shop settings-forms
+&#9745; Add better error messages/toasts to category, product and shop settings-forms
 
-&#9744; Add forgot password feature?
+&#9745; Address isFeatured and isArchived bug in product creation function
 
 &#9744; Add filters to data-table?
 
-&#9744; Address isFeatured and isArchived in product-settings-form?
-
-&#9744; Add formatter to product price input?
+&#9744; Add forgot password feature?
 
 ### Prerequisites
 

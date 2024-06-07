@@ -14,7 +14,7 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ overview }: DashboardProps) => {
-  const { cardData, graphData } = overview;
+  const { cardData, graphData, shop } = overview;
 
   return (
     <>
@@ -41,7 +41,7 @@ const Dashboard = ({ overview }: DashboardProps) => {
         ))}
       </div>
       <Separator />
-      <Header title='API' description={`API calls for shops`} />
+      <Header title='API' description={`API calls for ${shop?.name}`} />
       <ApiList entityName='shop' entitySlugName='shopSlug' />
     </>
   );

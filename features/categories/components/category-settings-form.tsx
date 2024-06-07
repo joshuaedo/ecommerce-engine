@@ -23,7 +23,7 @@ import useCategory from '../hooks/use-category';
 import { Input } from '@/components/common/input';
 import { useRouter } from 'next/navigation';
 import DeleteCategory from './delete-category';
-import { ImageUpload } from '@/components/common/image-upload';
+// import { ImageUpload } from '@/components/common/image-upload';
 import { useEffect, useState } from 'react';
 import { generateSlugFromName } from '@/lib/utils';
 import { ExtendedCategory } from '../types/extensions';
@@ -44,7 +44,9 @@ const CategorySettingsForm = ({
     initialCategoryData ? initialCategoryData.slug : ''
   );
   const form = useForm<UpdateCategoryType | CreateCategoryType>({
-    resolver: zodResolver(UpdateCategoryValidator || CreateCategoryValidator),
+    resolver: zodResolver(
+      initialCategoryData ? UpdateCategoryValidator : CreateCategoryValidator
+    ),
     defaultValues: initialCategoryData ?? {
       name: '',
       images: [],
@@ -53,6 +55,8 @@ const CategorySettingsForm = ({
       creatorId: userId,
     },
   });
+
+  // console.log(form.formState.errors);
 
   // console.log(form.getValues());
 
@@ -97,12 +101,9 @@ const CategorySettingsForm = ({
       <Separator />
       <Form {...form}>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            initialCategoryData
-              ? updateCategory(form.getValues())
-              : createCategory(form.getValues());
-          }}
+          onSubmit={form.handleSubmit((e) =>
+            initialCategoryData ? updateCategory(e) : createCategory(e)
+          )}
           className='space-y-4'
         >
           <div className='space-y-4'>

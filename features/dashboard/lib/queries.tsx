@@ -3,6 +3,7 @@ import { DashboardCardProps } from '../components/dashboard-card';
 import { CreditCard, DollarSign, Package } from 'lucide-react';
 import { DashboardGraphProps } from '../components/dashboard-graph';
 import { formatPrice } from '@/lib/utils';
+import { getShopById } from '@/features/shop/lib/queries';
 
 // Function to get paid orders for a shop
 const getPaidOrders = async (shopId: string) => {
@@ -80,6 +81,7 @@ const getRevenuePerMonth = async (shopId: string) => {
 
 // Function to get the overview data for a shop's dashboard
 const getShopOverview = async (shopId: string) => {
+  const shop = await getShopById(shopId)
   const totalRevenue = await getTotalRevenue(shopId);
   const salesCount = await getSalesCount(shopId);
   const stockCount = await getStockCount(shopId);
@@ -110,6 +112,7 @@ const getShopOverview = async (shopId: string) => {
   ];
 
   const overview = {
+    shop,
     cardData,
     graphData,
   };

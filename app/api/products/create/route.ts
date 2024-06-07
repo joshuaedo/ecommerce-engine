@@ -10,8 +10,17 @@ export async function PATCH(req: Request) {
 
     const body = await req.json();
 
-    const { name, images, shopId, slug, price, description, categorySlug } =
-      CreateProductValidator.parse(body);
+    const {
+      name,
+      images,
+      shopId,
+      slug,
+      price,
+      description,
+      categorySlug,
+      isArchived,
+      isFeatured,
+    } = CreateProductValidator.parse(body);
 
     if (!userId) {
       return new Response('Unauthenticated', { status: 401 });
@@ -36,6 +45,8 @@ export async function PATCH(req: Request) {
       price,
       description,
       categorySlug,
+      isFeatured,
+      isArchived,
     });
 
     return new Response(JSON.stringify(newProduct), { status: 200 });

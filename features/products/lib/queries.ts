@@ -8,17 +8,36 @@ type getProductOptions = {
   categorySlug?: string | undefined;
   limit?: string | null | undefined;
   page?: string | undefined | null;
+  includeArchived?: boolean | undefined;
 };
 
 const getProduct = async ({
-  slug,
   id,
+  slug,
   shopId,
   categorySlug,
+  includeArchived,
   limit,
   page,
 }: getProductOptions) => {
   let product: ExtendedProduct | ExtendedProduct[] | null = null;
+  const where: any = {};
+
+  if (id !== undefined) {
+    where.id = id;
+  }
+  if (slug !== undefined) {
+    where.slug = slug;
+  }
+  if (shopId !== undefined) {
+    where.shopId = shopId;
+  }
+  if (categorySlug !== undefined) {
+    where.categorySlug = categorySlug;
+  }
+  if (includeArchived === false) {
+    where.isArchived = false;
+  }
 
   const extensions = {
     images: true,
@@ -26,31 +45,35 @@ const getProduct = async ({
     creator: true,
   };
 
+  // get a single product
   if (id !== undefined) {
     product = await db.product.findUnique({
-      where: { id },
+      where,
       include: extensions,
     });
   }
   if (slug !== undefined) {
     product = await db.product.findFirst({
-      where: { slug },
+      where,
       include: extensions,
     });
   }
   if (shopId !== undefined && slug !== undefined) {
     product = await db.product.findFirst({
-      where: { slug, shopId },
+      where,
       include: extensions,
     });
   } else if (categorySlug !== undefined && slug !== undefined) {
     product = await db.product.findFirst({
-      where: { categorySlug, slug },
+      where,
       include: extensions,
     });
-  } else if (categorySlug !== undefined) {
+  }
+
+  // get an array of products
+  else if (categorySlug !== undefined) {
     product = await db.product.findMany({
-      where: { categorySlug, isArchived: false },
+      where,
       orderBy: {
         createdAt: 'desc',
       },
@@ -58,7 +81,7 @@ const getProduct = async ({
     });
   } else if (shopId !== undefined && categorySlug !== undefined) {
     product = await db.product.findMany({
-      where: { shopId, categorySlug, isArchived: false },
+      where,
       orderBy: {
         createdAt: 'desc',
       },
@@ -67,7 +90,7 @@ const getProduct = async ({
   } else if (shopId !== undefined) {
     if (limit === undefined || limit === null) {
       product = await db.product.findMany({
-        where: { shopId, isArchived: false },
+        where,
         orderBy: {
           createdAt: 'desc',
         },
@@ -76,7 +99,7 @@ const getProduct = async ({
     } else {
       if (page === undefined || page === null) {
         product = await db.product.findMany({
-          where: { shopId, isArchived: false },
+          where,
           take: parseInt(limit),
           orderBy: {
             createdAt: 'desc',
@@ -85,7 +108,7 @@ const getProduct = async ({
         });
       } else {
         product = await db.product.findMany({
-          where: { shopId, isArchived: false },
+          where,
           take: parseInt(limit),
           skip: (parseInt(page) - 1) * parseInt(limit),
           orderBy: {
@@ -100,6 +123,7 @@ const getProduct = async ({
   return product;
 };
 
+// get a single product
 const getProductBySlug = async ({ slug }: getProductOptions) => {
   return await getProduct({ slug });
 };
@@ -122,25 +146,29 @@ const getProductBySlugAndCategorySlug = async ({
   return await getProduct({ slug, categorySlug });
 };
 
+// get an array of products
 const getProductsByCategorySlug = async ({
   categorySlug,
+  includeArchived = false,
 }: getProductOptions) => {
-  return await getProduct({ categorySlug });
+  return await getProduct({ categorySlug, includeArchived });
 };
 
 const getProductsByShopIdAndCategorySlug = async ({
   shopId,
   categorySlug,
+  includeArchived = false,
 }: getProductOptions) => {
-  return await getProduct({ shopId, categorySlug });
+  return await getProduct({ shopId, categorySlug, includeArchived });
 };
 
 const getProductsByShopId = async ({
   shopId,
   limit,
   page,
+  includeArchived = false,
 }: getProductOptions) => {
-  return await getProduct({ shopId, limit, page });
+  return await getProduct({ shopId, limit, page, includeArchived });
 };
 
 export {
