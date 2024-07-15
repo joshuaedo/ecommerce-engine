@@ -1,6 +1,13 @@
 import { db } from '@/lib/db';
 import { ExtendedProduct } from '../types/extensions';
 
+type searchProductsOptions = {
+  keywords?: string | undefined;
+  shopId: string;
+  limit?: string | null | undefined;
+  page?: string | null | undefined;
+};
+
 type getProductOptions = {
   slug?: string | undefined;
   id?: string | undefined;
@@ -9,6 +16,66 @@ type getProductOptions = {
   limit?: string | null | undefined;
   page?: string | undefined | null;
   includeArchived?: boolean | undefined;
+};
+
+const searchProducts = async ({
+  keywords,
+  shopId,
+  limit,
+  page,
+}: searchProductsOptions): Promise<ExtendedProduct[] | null> => {
+  let products: ExtendedProduct | ExtendedProduct[] | null = null;
+  const where: any = {};
+
+  if (keywords) {
+    where.OR = [
+      { name: { contains: keywords, mode: 'insensitive' } },
+      { description: { contains: keywords, mode: 'insensitive' } },
+    ];
+  }
+
+  if (shopId) {
+    where.shopId = shopId;
+  }
+
+  const extensions = {
+    images: true,
+    category: true,
+    creator: true,
+  };
+
+  if (limit === undefined || limit === null) {
+    products = await db.product.findMany({
+      where,
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: extensions,
+    });
+  } else {
+    if (page === undefined || page === null) {
+      products = await db.product.findMany({
+        where,
+        take: parseInt(limit),
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: extensions,
+      });
+    } else {
+      products = await db.product.findMany({
+        where,
+        take: parseInt(limit),
+        skip: (parseInt(page) - 1) * parseInt(limit),
+        orderBy: {
+          name: 'asc',
+        },
+        include: extensions,
+      });
+    }
+  }
+
+  return products;
 };
 
 const getProduct = async ({
@@ -179,4 +246,5 @@ export {
   getProductsByCategorySlug,
   getProductsByShopIdAndCategorySlug,
   getProductBySlugAndCategorySlug,
+  searchProducts,
 };
